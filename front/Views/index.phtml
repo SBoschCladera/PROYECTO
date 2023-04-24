@@ -1,0 +1,136 @@
+<?php
+/**
+ * @var array $advertisements
+ * @var int $selectedAdvertisementId
+ * @var int $zoom
+ * @var float $selectedLatitude
+ * @var float $selectedLongitude
+ */
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Compra-Venta de coches</title>
+    <!-- Incluir los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <!-- <script src="../JS/anuncios.js"></script> -->
+</head>
+
+<body>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <a class="navbar-brand" href="#">tunuevocoche.com</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Catálogo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contacto</a>
+                </li>
+            </ul>
+            <div class="ml-auto">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary mr-2 bg-light" href="logIn.phtml">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-success bg-light" href="signUp.phtml">Registrarse</a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+
+    <h1 class="text-center mb-5">Busca tu nuevo coche</h1>
+
+    <!-- Filtro de búsqueda -->
+
+    <div class="row ml-1" id="result">
+        <div class="col-md-2 mt-4" id="buscador">
+            <div class="card">
+                <div class="card-header">
+                    Buscar coche
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="marca">Marca:</label>
+                            <select class="form-control" id="marca">
+                                <option>Todas las marcas</option>
+                                <option>BMW</option>
+                                <option>Mercedes-Benz</option>
+                                <option>Audi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="modelo">Modelo:</label>
+                            <input type="text" class="form-control" id="modelo">
+                        </div>
+                        <div class="form-group">
+                            <label for="precio_max">Precio máximo:</label>
+                            <input type="number" class="form-control" id="precio_max">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modelos de vehículos -->
+        <?php $counter = 0;
+
+        foreach ($advertisements as $advertisement) {
+
+            if ($counter > 2 && ($counter % 3 == 0)) { ?>
+                <div class="col-md-2 mt-4 separator"></div>
+            <?php } ?>
+
+            <div class="col-md-3 mt-4 portada ml-3 mb-3">
+                <div class="card sonDiv">
+                    <img src="<?php echo $advertisement->images->foto1 ?>" class="card-img-top"
+                        alt="Imagen de un <?php echo $advertisement->brand_id->name ?>">
+                    <div class="card-body advertisementTextDiv">
+                        <h5 class="card-title">
+                            <?php echo $advertisement->brand_id->name . " " . $advertisement->model_id->name . " " . $advertisement->model_id->series ?>
+                        </h5>
+                        <img src="<?php echo $advertisement->brand_id->logo ?>" class="float-right photoLogo"
+                            alt="Imagen del logo" <?php echo $advertisement->brand_id->name ?>'>
+                        <p class="card-text">
+                            <?php echo $advertisement->description ?>
+                        </p>
+                        <h5 class="card-text price">
+                            <?php echo $advertisement->price ?>
+                        </h5>
+                        <p class="card-text">
+                            <?php echo $advertisement->motorization_id->power . "CV - " /*. $advertisement->vehicleType_id->name */?>
+                        </p>
+                        <p class="card-text">
+                            <?php echo $advertisement->km . " km" ?>
+                        </p>
+                        <a href="#" class="btn btn-primary">Ver detalles</a>
+                    </div>
+                </div>
+            </div>
+            <?php $counter = $counter + 1;
+        } ?>
+    </div>
+</body>
+
+</html>
