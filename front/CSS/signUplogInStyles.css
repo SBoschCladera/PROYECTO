@@ -1,0 +1,43 @@
+/*  Estilos del LogIn y SignUp*/
+.bg-info {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+/* Fondo del botón */
+.btn-primary {
+    background-color: #28a745;
+    /* color de fondo verde */
+    border-color: #28a745;
+    /* color del borde verde */
+}
+
+/* Color del texto del botón */
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #218838;
+    /* Background verde oscuro */
+    border-color: #1e7e34;
+    /* Color del borde verde oscuro */
+}
+
+/* Color del texto del enlace */
+a {
+    color: #28a745;
+    /* Color del texto verde */
+}
+
+/* Color del texto de los inputs */
+.form-control {
+    color: #555;
+    /* Color del texto gris oscuro */
+}
+
+/* Posicionamiento del LogIn y SignUp */
+.verticalPosition {
+    margin-top: 10%
+}
