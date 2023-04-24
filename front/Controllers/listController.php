@@ -16,7 +16,7 @@ $selectedAdvertisementId = "";
 
 if (isset($_GET["id"])) {
     $selectedAdvertisementId = $_GET["id"];
-    $selectedAdvertisement = $obj->selectedProperty;
+    $selectedAdvertisement = $obj->selectedAdvertisement;
    
 }
 
