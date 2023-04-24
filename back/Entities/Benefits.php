@@ -2,7 +2,7 @@
 
 include_once "Model.php";
 
-class benefits
+class Benefits
 {
     public int $id;
     public Model $model_id;
@@ -17,7 +17,7 @@ class benefits
      * @param int $acceleration_0_100
      * @param float $consumption
      */
-    public function __construct(int $id, MOdel $model_id, int $max_velocity, int $acceleration_0_100, float $consumption)
+    public function __construct(int $id, Model $model_id, int $max_velocity, int $acceleration_0_100, float $consumption)
     {
         $this->id = $id;
         $this->model_id = $model_id;
@@ -37,7 +37,7 @@ class benefits
     /**
      * @return Model
      */
-    public function getModel(): model
+    public function getModel(): Model
     {
         return $this->model_id;
     }

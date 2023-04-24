@@ -32,7 +32,7 @@ class Advertisement
      * @param string $description
      * @param float $price
      * @param DateTime $publication_date
-     * @param model $model_id
+     * @param Model $model_id
      * @param SellerUser $sellerUser_id
      * @param string $color
      * @param float $km
@@ -141,7 +141,7 @@ class Advertisement
     }
 
      /**
-     * @return motorization
+     * @return Motorization
      */
     public function getMotorization(): Motorization
     {
