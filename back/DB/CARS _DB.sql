@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS cars_DB;
+   CREATE DATABASE IF NOT EXISTS cars_DB;
 
 USE cars_DB;
 
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS user_app (
 CREATE TABLE IF NOT EXISTS seller_user (
      id INT AUTO_INCREMENT NOT NULL,
      name VARCHAR(250) NOT NULL,
-     NIF VARCHAR(10) NOT NULL,
+     NIF VARCHAR(12) NOT NULL,
      email VARCHAR(255) NOT NULL,
      phoneNumber VARCHAR(20) NOT NULL,
      user_app_id INT(10) NOT NULL,
@@ -125,8 +125,8 @@ USE cars_DB;
 INSERT INTO
      vehicle_type (name)
 VALUES
-     ('Automóvil'),
-     ('Camioneta'),
+     ('Turismo'),
+     ('4x4'),
      ('Motocicleta');
 
 -- Insertar registro en la tabla pais
@@ -343,9 +343,9 @@ VALUES
      ('Golf', 'VII', 2, '2022', 3, 1),
      ('Tiguan', 'I', 1, '2021', 3, 1),
      ('Touareg', 'III', 2, '2022', 3, 1),
-     ('C-HR', 'I', 1, '2021', 5, 1),
+     ('C-HR', 'I', 1, '2021', 1, 1),
      ('Camry', 'VII', 2, '2022', 1, 1),
-     ('RAV4', 'IV', 1, '2021', 1, 2),
+     ('RAV4', 'IV', 1, '2021', 1, 1),
      ('Highlander', 'IV', 2, '2022', 1, 1),
      ('X5', 'III', 1, '2021', 6, 1),
      ('3 Series', 'G20', 2, '2022', 6, 1),
@@ -374,10 +374,10 @@ VALUES
      ('EcoSport', 'B515', 4, '2003', 2, 1),
      ('Explorer', 'U502', 1, '2011', 2, 1),
      ('Escape', 'C520', 1, '2012', 2, 1),
-     ('Bronco', 'U725', 1, '2020', 2, 1),
-     ('Ram', 'DR', 1, '2009', 22, 3),
-     ('Wrangler', 'JK', 1, '2006', 28, 1),
-     ('Cherokee', 'KL', 1, '2014', 28, 1),
+     ('Bronco', 'U725', 1, '2020', 2, 2),
+     ('Ram', 'DR', 1, '2009', 22, 2),
+     ('Wrangler', 'JK', 1, '2006', 28, 2),
+     ('Cherokee', 'KL', 1, '2014', 28, 2),
      ('Soul', 'AM', 1, '2008', 18, 1),
      ('Rio', 'JB', 1, '2005', 18, 1),
      ('Sorento', 'BL', 1, '2002', 18, 1),
@@ -401,16 +401,16 @@ VALUES
      ('Ibiza', 'FR', 2, '2017', 21, 1),
      ('Ibiza', 'FR', 1, '2019', 21, 1),
      ('Ninja', 'ZX-6R', 1, 2020, 26, 3),
-     ('CBR', '1000RR', 1, 2019, 4, 3),
+     ('CBR', '1000RR', 1, 2019, 5, 3),
      ('MT', '09', 1, 2019, 26, 3),
      ('SuperSport', 'S', 1, 2017, 25, 3),
      ('Monster', '821', 1, 2018, 23, 3),
      ('Ram 1500', 'DT', 2, '2022', 22, 2),
-     ('Ford F-150', 'TW14', 2, '2022', 2, 2),
-     ('GMC Sierra 1500', 'T1SC', 1, '2021', 24, 2),
-     ('Toyota Tundra', 'XK80', 1, '2022', 1, 1),
+     ('F-150', 'TW14', 2, '2022', 2, 2),
+     ('Sierra 1500', 'T1SC', 1, '2021', 24, 2),
+     ('Tundra', 'XK80', 1, '2022', 1, 2),
      (
-          'Chevrolet Silverado 1500',
+          'Silverado 1500',
           'T1SC',
           3,
           '2021',
