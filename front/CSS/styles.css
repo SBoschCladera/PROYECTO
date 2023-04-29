@@ -1,11 +1,52 @@
-.photoLogo{
+.photoLogo {
     width: 60px;
     height: 60px;
     border-radius: 60px;
 }
 
-.price{
+.price {
     font-size: 25px;
 }
 
+.cuteCats {
+    display: inline-block;
+    padding: 3%;
+}
 
+.notFoundH5,
+notFoundH5b {
+    padding: 3%;
+}
+
+.notFoundH5b {
+    margin-top: 3%;
+    text-align: center;
+}
+
+#notFoundMatchesDiv {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80%;
+    overflow-y: auto;
+    z-index: 9999;
+}
+
+#notFoundMatchesDiv h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 0 20px;
+}
+
+#notFoundMatchesDiv p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0 0 20px;
+}
