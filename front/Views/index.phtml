@@ -1,10 +1,11 @@
 <?php
 /**
  * @var array $advertisements
+ * @var array $brands
+ * @var array $vehicleTypes
  * @var int $selectedAdvertisementId
- * @var int $zoom
- * @var float $selectedLatitude
- * @var float $selectedLongitude
+ * @var int $selectedBrandId 
+ * @var int $selectedvehicleTypeId
  */
 ?>
 
@@ -14,13 +15,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Compra-Venta de coches</title>
-    <!-- Incluir los archivos CSS de Bootstrap -->
+    <!-- Archivos CSS de Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- JS de Bootstrap (requiere jQuery) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+        <!-- Scripts -->
     <link rel="stylesheet" href="../CSS/styles.css">
-    <!-- <script src="../JS/anuncios.js"></script> -->
+    <script src="../JS/list.js"></script> 
+    <script src="../JS/optionsLogic.js"></script> 
+    <script src="../JS/createElements.js"></script> 
 </head>
 
 <body>
+
+    <?php include("../Controllers/initController.php"); ?>
 
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -51,8 +63,6 @@
                     </li>
                 </ul>
             </div>
-
-
         </div>
     </nav>
 
@@ -63,38 +73,64 @@
     <!-- Filtro de búsqueda -->
 
     <div class="row ml-1" id="result">
-        <div class="col-md-2 mt-4" id="buscador">
+        <div class="col-md-2 mt-4" id="searcher">
             <div class="card">
                 <div class="card-header">
-                    Buscar coche
+                    Busca tu vehículo
                 </div>
                 <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="marca">Marca:</label>
-                            <select class="form-control" id="marca">
-                                <option>Todas las marcas</option>
-                                <option>BMW</option>
-                                <option>Mercedes-Benz</option>
-                                <option>Audi</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="modelo">Modelo:</label>
-                            <input type="text" class="form-control" id="modelo">
-                        </div>
-                        <div class="form-group">
-                            <label for="precio_max">Precio máximo:</label>
-                            <input type="number" class="form-control" id="precio_max">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Buscar</button>
-                    </form>
+                    <!-- <form> -->
+                    <div class="form-group">
+                        <label for="vehicleTypeLabel">Tipo de vehículo:</label>
+                        <select class="form-control" id="vehicleType" onchange="optionValue(this.value)">
+                            <option value="0" selected>Todos los tipos</option>
+
+                            <?php
+                            foreach ($vehicleTypes as $vehicleType) { ?>
+                                <option value="<?php echo $vehicleType->id ?>">
+                                    <?php
+                                    echo $vehicleType->name ?>
+                                </option>
+                            <?php } ?>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="brandLabel">Marca:</label>
+                        <select class="form-control" id="brand">
+                            <option value="0" selected>Todas las marcas</option>
+
+                            <?php
+                            foreach ($brands as $brand) { ?>
+                                <option value="<?php echo $brand->id ?>">
+                                    <?php
+                                    echo $brand->name ?>
+                                </option>
+                            <?php } ?>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="modelLabel">Modelo:</label>
+                        <input type="text" class="form-control" id="model">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxPriceLabel">Precio máximo:</label>
+                        <input type="number" class="form-control" id="maxPrice">
+                    </div>
+                    <button class="btn btn-primary" onclick="sendData()" id="buttonData">Buscar</button>
+                    <!-- </form> -->
                 </div>
             </div>
         </div>
 
         <!-- Modelos de vehículos -->
-        <?php $counter = 0;
+
+        <script>
+            toListAdvertisements();            
+        </script>
+
+        <!-- <?php $counter = 0;
 
         foreach ($advertisements as $advertisement) {
 
@@ -111,7 +147,7 @@
                             <?php echo $advertisement->brand_id->name . " " . $advertisement->model_id->name . " " . $advertisement->model_id->series ?>
                         </h5>
                         <img src="<?php echo $advertisement->brand_id->logo ?>" class="float-right photoLogo"
-                            alt="Imagen del logo" <?php echo $advertisement->brand_id->name ?>'>
+                            alt="Imagen del logo" <?php echo $advertisement->brand_id->name ?>>
                         <p class="card-text">
                             <?php echo $advertisement->description ?>
                         </p>
@@ -119,7 +155,7 @@
                             <?php echo $advertisement->price ?>
                         </h5>
                         <p class="card-text">
-                            <?php echo $advertisement->motorization_id->power . "CV - " /*. $advertisement->vehicleType_id->name */?>
+                            <?php echo $advertisement->motorization_id->power . "CV - " . $advertisement->model_id->engineType_id->name ?>
                         </p>
                         <p class="card-text">
                             <?php echo $advertisement->km . " km" ?>
@@ -129,8 +165,8 @@
                 </div>
             </div>
             <?php $counter = $counter + 1;
-        } ?>
-    </div>
+        } ?> -->
+    </div>  
 </body>
 
 </html>
