@@ -26,7 +26,7 @@ function makeCard(cont, cont2, data) {
     let km = createParagraf('card-text', `${data[cont].km} Km.`);
     grandsonDiv.appendChild(km);
 
-    let link = createLinks('btn btn-primary', '#', 'Ver detalles');
+    let link = createLinks('btn btn-primary', `idCar${data[cont].model_id.id}`, '../Views/singleAdvertisement.phtml', 'Ver detalles');
     grandsonDiv.appendChild(link);
 
     sonDiv.appendChild(grandsonDiv);
@@ -58,10 +58,11 @@ function alignedDiv(cont) {
 }
 
 // Crea y devuelve un elemento option <option> para un elemto select según su id, con los parámetros indicados
-function createOption(value, text, id) {
+function createOption(value, text, id, className) {
     let option = document.createElement("option");
     option.value = value;
     option.text = text;
+    option.setAttribute('class', className);
     document.getElementById(id).appendChild(option);
 
     return option;
@@ -107,15 +108,16 @@ function createParagraf(className, text) {
 }
 
 // Crea y devuelve un elemento enlace <a> con los parámetros indicados
-function createLinks(className, href, text) {
+function createLinks(className, id, href, text) {
     let link = document.createElement('a');
     link.setAttribute('class', className);
-    link.setAttribute('href', href)
+    link.setAttribute('id', id);
+    link.setAttribute('href', href);
+    link.setAttribute('target', 'blank');
     let linkText = document.createTextNode(text);
     link.appendChild(linkText);
 
     return link;
-}
 
 // Crea y devuelve un elemento button <button> con los parámetros indicados
 function createButton(type, className, data, text) {
