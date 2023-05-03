@@ -49,20 +49,29 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Catálogo</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mr-2">
                     <a class="nav-link" href="#">Contacto</a>
                 </li>
             </ul>
-            <div class="ml-auto">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary mr-2 bg-light" href="logIn.phtml">Iniciar sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-success bg-light" href="signUp.phtml">Registrarse</a>
-                    </li>
-                </ul>
-            </div>
+            <a href="#" id="oscuro" class="btn btn-dark mr-3" onclick="modoOscuro()">
+                <i class="fas fa-moon"></i> Modo oscuro
+            </a>
+            <form class="form-inline my-2 my-lg-0 mr-auto">
+                <div class="input-group">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary mr-2 bg-light" href="logIn.phtml">Iniciar sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary bg-light" href="signUp.phtml">Registrarse</a>
+                </li>
+            </ul>
         </div>
     </nav>
 
@@ -83,11 +92,11 @@
                     <div class="form-group">
                         <label for="vehicleTypeLabel">Tipo de vehículo:</label>
                         <select class="form-control" id="vehicleType" onchange="optionValue(this.value)">
-                            <option value="0" selected>Todos los tipos</option>
+                            <option value="0" class="optionsClassName" selected>Todos los tipos</option>
 
                             <?php
                             foreach ($vehicleTypes as $vehicleType) { ?>
-                                <option value="<?php echo $vehicleType->id ?>">
+                                <option value="<?php echo $vehicleType->id ?>" class="optionsClassName">
                                     <?php
                                     echo $vehicleType->name ?>
                                 </option>
@@ -97,12 +106,12 @@
                     </div>
                     <div class="form-group">
                         <label for="brandLabel">Marca:</label>
-                        <select class="form-control" id="brand">
-                            <option value="0" selected>Todas las marcas</option>
+                        <select class="form-control" id="brand" onchange="optionModelValue(this.value)">
+                            <option value="0" class="optionsClassName" selected>Todas las marcas</option>
 
                             <?php
                             foreach ($brands as $brand) { ?>
-                                <option value="<?php echo $brand->id ?>">
+                                <option value="<?php echo $brand->id ?>" class="optionsClassName">
                                     <?php
                                     echo $brand->name ?>
                                 </option>
@@ -111,12 +120,14 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="modelLabel">Modelo:</label>
-                        <input type="text" class="form-control" id="model">
+                        <label for="brandModel">Modelo:</label>
+                        <select class="form-control" id="model">
+                            <option value="0" class="optionsClassName" selected>Todos los modelos</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="maxPriceLabel">Precio máximo:</label>
-                        <input type="number" class="form-control" id="maxPrice">
+                        <input type="number" class="form-control" id="maxPrice" step="1000" min="0" value="">
                     </div>
                     <button class="btn btn-primary" onclick="sendData()" id="buttonData">Buscar</button>
                     <!-- </form> -->
