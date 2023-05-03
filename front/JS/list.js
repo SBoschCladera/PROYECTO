@@ -3,7 +3,7 @@ document.onload = function () {
     //totalAdvertisements();
     
 }
-numAdvertisements = 51;
+numAdvertisements = 118;
 
 // Obtiene el número total de anuncios que se mostrarán en pantalla
 function totalAdvertisements() {
@@ -57,7 +57,9 @@ function sendData() {
     // Obtiene los valores de los campos del formulario
     let selectVehicleTypeValue = document.getElementById('vehicleType').value;
     let selectBrandValue = document.getElementById('brand').value;
-    let modelSearcherValue = document.getElementById('model').value;
+   let selectModelValue = document.getElementById('model').value;
+    let modelSelect = document.getElementById('model');
+    let modelSelectName = modelSelect.options[modelSelect.selectedIndex].text;
     let maxPriceValue = document.getElementById('maxPrice').value;
 
     // Crear una instancia de XMLHttpRequest
@@ -73,6 +75,50 @@ function sendData() {
             let data = JSON.parse(this.responseText);
             let counter = 0;
 
+            // Buscar el div que deseas verificar por su clase
+            let divToDelete = document.getElementById("notFoundMatchesDiv");
+
+            if (divToDelete !== null) {
+                divToDelete.remove();
+            }
+
+            // Recorrer todos los elementos y los elimina
+            divDeleter();
+
+    for (let i = 0; i < listNum; i++) {
+
+        // Condición para añadir un "div" separador para continuar con el formato HTML de la primera fila de anuncios
+        alignedDiv(i);
+
+        // Crea un anuncio con bootstrap       
+        makeCard(i, i, data.advertisements)
+    }
+}
+
+
+//Muestra los anunciones en pantalla según las opciones seleccionadas de los selects
+function sendData() {
+
+    // Obtiene los valores de los campos del formulario
+    let selectVehicleTypeValue = document.getElementById('vehicleType').value;
+    let selectBrandValue = document.getElementById('brand').value;
+    let selectModelValue = document.getElementById('model').value;
+    let modelSelect = document.getElementById('model');
+    let modelSelectName = modelSelect.options[modelSelect.selectedIndex].text;
+    let maxPriceValue = document.getElementById('maxPrice').value;
+
+    // Crear una instancia de XMLHttpRequest
+    let xhr = new XMLHttpRequest();
+
+    // Configurar la solicitud
+    xhr.open('POST', '../../back/Controllers/listController.php');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    // Definir la función que se llamará cuando la solicitud se complete
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            let data = JSON.parse(this.responseText);
+            let counter = 0;
 
             // Buscar el div que deseas verificar por su clase
             let divToDelete = document.getElementById("notFoundMatchesDiv");
@@ -86,58 +132,84 @@ function sendData() {
 
             for (let i = 0; i < numAdvertisements; i++) {
 
-
                 //  Variables con condiciones
                 let selectVehicleTypeValueEqualsVehicleTypeId = (parseInt(data.advertisements[i].model_id.vehicleType_id.id) == selectVehicleTypeValue);
                 let selectBrandValueEqualsBrandId = (parseInt(data.advertisements[i].brand_id.id) == parseInt(selectBrandValue));
+                let selectmodeldValueEqualsModelName = (data.advertisements[i].model_id.name == modelSelectName);
+                let selectMaxPrice = parseInt(data.advertisements[i].price) <= parseInt(maxPriceValue);
 
-                // Si hay seleccionado un id para el select con el tipo de vehículo y un id para el select con la marca diferentes a "0"...
-                if (selectVehicleTypeValueEqualsVehicleTypeId && selectBrandValueEqualsBrandId) {
+                // Comprueba si hay seleccionado un precio máximo en el buscador
+                if (selectMaxPrice || maxPriceValue == "") {
 
-                    let modelSelect = parseInt(selectBrandValue) - 1;
+                    // Si hay seleccionado un id para el select con el tipo de vehículo... 
+                    if (selectVehicleTypeValueEqualsVehicleTypeId) {
 
-                    // Condición para añadir un "div" separador para continuar con el formato HTML de la primera fila de anuncios
-                    alignedDiv(counter);
-                    counter++;
+                        // ... y un id para el select con la marca diferentes a "0"...    
+                        if (selectBrandValueEqualsBrandId) {
 
-                    // Crea un anuncio con bootstrap
-                    makeCard(i, modelSelect, data.advertisements);
-                }
+                            if (selectmodeldValueEqualsModelName) {
+                                // Condición para añadir un "div" separador para continuar con el formato HTML de la primera fila de anuncios
+                                alignedDiv(counter);
+                                counter++;
 
-                // Si no ha sido seleccionado un id para el select con el tipo de vehículo ni para el select de marca...
-                else if (parseInt(selectVehicleTypeValue) == "0" && selectBrandValue == "0") {
-                    // Recorrer todos los elementos y eliminarlos
-                    counter++;
-                    divDeleter();
-                    makeList(data, numAdvertisements);
-                }
-                // Si hay seleccionado un id para el select con el tipo de vehículo y no se ha seleccionado ninguna opción para select con la marca...
-                else if (selectVehicleTypeValueEqualsVehicleTypeId && selectBrandValue == "0") {
-                    alignedDiv(counter);
-                    counter++;
+                                // Crea un anuncio con bootstrap
+                                makeCard(i, i, data.advertisements);
 
-                    // Crea un anuncio con bootstrap
-                    makeCard(i, i, data.advertisements);
-                }
+                            } else if (selectModelValue == "0") {
+                                alignedDiv(counter);
+                                counter++;
+                                makeCard(i, i, data.advertisements);
+                            }
+                        }
+                        // ... y no se ha seleccionado ninguna opción para select con la marca...
+                        else if (selectBrandValue == "0") {
 
-                // Si no se ha seleccionado seleccionado un id para el select con el tipo de vehículo y sí ha seleccionado una opción en el select con la marca...
-                else if (selectVehicleTypeValue == "0" && selectBrandValueEqualsBrandId) {
-                    alignedDiv(counter);
-                    counter++;
+                            alignedDiv(counter);
+                            counter++;
+                            makeCard(i, i, data.advertisements);
+                        }
+                    }
 
-                    // Crea un anuncio con bootstrap
-                    makeCard(i, i, data.advertisements);
+                    // Si no se ha seleccionado seleccionado un id para el select con el tipo de vehículo... 
+                    else if (parseInt(selectVehicleTypeValue) == "0") {
+
+                        // ... y sí se ha seleccionado una opción en el select con la marca...
+                        if (selectBrandValueEqualsBrandId) {
+
+                            if (selectmodeldValueEqualsModelName) {
+                                // Condición para añadir un "div" separador para continuar con el formato HTML de la primera fila de anuncios
+                                alignedDiv(counter);
+                                counter++;
+
+                                // Crea un anuncio con bootstrap
+                                makeCard(i, i, data.advertisements);
+
+                            } else if (selectModelValue == "0") {
+                                alignedDiv(counter);
+                                counter++;
+                                makeCard(i, i, data.advertisements);
+                            }
+                        }
+                        // ... y no se ha selecionado un id para el select de marca...
+                        else if (selectBrandValue == "0") {
+
+                            alignedDiv(counter);
+                            counter++;
+                            makeCard(i, i, data.advertisements);
+                        }
+                    }
                 }
             }
-
+            // Condición para la muestra del mensaje de búsqueda sin resultados
             if (counter < 1) {
-                //punto                
-                document.getElementById('result').appendChild(notFoundMatches());
+
+                notFoundMatches('result');
             }
         }
     }
 
     // Enviar la solicitud con los datos del formulario
     xhr.send();
+    document.getElementById('maxPrice').value = "";
 }
 
