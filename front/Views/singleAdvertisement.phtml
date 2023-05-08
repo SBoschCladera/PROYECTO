@@ -1,10 +1,16 @@
+<?php
+/**
+ * @var $advertisement_obj
+ */
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalle del coche</title>
+  <title class="mt-5">Detalle del anuncio</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
   <!-- Bootstrap JS -->
@@ -15,12 +21,20 @@
 </head>
 
 <body>
+  <!-- <?php var_dump($advertisement_obj->advertisement) ?> -->
+
+  <button type="button" id="closeButton" class="close position-fixed float-right" data-dismiss="modal" aria-label="Close" onclick="window.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
   <div class="container mt-5">
-    <h1>Detalle del coche</h1>
+    <h1 class="mb-5">
+      <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?>
+    </h1>
     <div class="row mb-5">
       <div class="col-md-7">
         <div class="card">
-          <img src="../images/advertisementImages/subaru-wrx-2021-7166_18.jpg" class="card-img-top"
+          <img src="<?php echo $advertisement_obj->advertisement->images->foto1 ?>" class="card-img-top"
             alt="Imagen del coche">
         </div>
       </div>
@@ -38,40 +52,61 @@
     <div class="row">
       <div class="col-md-4 mt-2">
         <div class="card">
-          <!-- <div class="card-header">
-            Nombre del coche
-          </div> -->
           <div class="card-body">
-            <h2>Nombre del coche</h2>
-            <p><strong>Marca:</strong>`${$advertisement[1].id}`</p>
-            <p><strong>Modelo:</strong> Nombre del modelo</p>
-            <p><strong>Año:</strong> Año del coche</p>
-            <p><strong>Descripción:</strong> Descripción detallada del coche</p>
-            <p><strong>Precio:</strong> Precio del coche</p>
-            <p><strong>km:</strong> Precio del coche</p>
-            <p><strong>Color:</strong> Precio del coche</p>
+            <h2 class="mb-4"> Modelo
+              <!-- <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?> -->
+            </h2>
+            <p><strong>Marca:</strong>
+              <?php echo $advertisement_obj->advertisement->brand_id->name ?>
+            </p>
+            <p><strong>Modelo:</strong>
+              <?php echo $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?>
+            </p>
+            <p><strong>Año:</strong>
+              <!--<?php echo $advertisement_obj->advertisement->releaseYear->date ?>-->
+            </p>
+            <p><strong>Descripción:</strong>
+              <?php echo $advertisement_obj->advertisement->description . "." ?>
+            </p>
+            <p><strong>Precio:</strong>
+              <?php echo number_format($advertisement_obj->advertisement->price, 0, ",", ".") . "€" ?>
+            </p>
+            <p><strong>Km:</strong>
+              <?php echo number_format($advertisement_obj->advertisement->km, 0, ",", ".") . " km" ?>
+            </p>
+            <p><strong>Color:</strong>
+              <?php echo $advertisement_obj->advertisement->color ?>
+            </p>
           </div>
         </div>
       </div>
       <div class="col-md-4 mt-2">
         <div class="card">
-          <!-- <div class="card-header">
-            Prestaciones
-          </div> -->
           <div class="card-body">
-            <h2>Características</h2>
-            <p><strong>Motor:</strong> Nombre de la marca</p>
-            <p><strong>Consumo:</strong> Nombre de la marca</p>
-            <p><strong>Velocidad máxima:</strong> Nombre de la marca</p>
-            <p><strong>Aceleración:</strong> Nombre de la marca</p>
+            <h2 class="mb-4">Características</h2>
+            <p><strong>Motor:</strong>
+              <?php echo $advertisement_obj->advertisement->model_id->engineType_id->name . "." ?>
+            </p>
+            <p><strong>Consumo:</strong>
+              <?php echo $advertisement_obj->advertisement->benefits_id->consumption . " l/100 km" ?>
+            </p>
+            <p><strong>Velocidad máxima:</strong>
+              <?php echo $advertisement_obj->advertisement->benefits_id->max_velocity . " km/h" ?>
+            </p>
+            <p><strong>Aceleración:</strong>
+              <?php echo $advertisement_obj->advertisement->benefits_id->acceleration_0_100 . " seg." ?>
+            </p>
+            <p><strong>Potencia:</strong>
+              <?php echo $advertisement_obj->advertisement->motorization_id->power . " CV." ?>
+            </p>
+            <p><strong>Cilindrada:</strong>
+              <?php echo $advertisement_obj->advertisement->motorization_id->displacement . " l." ?>
+            </p>
           </div>
         </div>
       </div>
       <div class="col-md-4 mt-5">
         <div class="card">
-          <!-- <div class="card-header">
-            Contacta con el vendedor
-          </div> -->
           <div class="card-body">
             <p>Para contactar con el vendedor, envía un correo electrónico a:</p>
             <a href="mailto:vendedor@example.com"
@@ -84,48 +119,18 @@
     <div class="col-md-12">
       <h2 id="galleryH2" class="mt-5 mb-5">Galería de imágenes</h2>
       <section class=" col-md-12">
-        <img src="../images/advertisementImages/FERRARI-488-Pista-6247_2.jpg" alt="">
-        <img src="../images/advertisementImages/FERRARI-488-Pista-6247_3.jpg" alt="">
-        <img src="../images/advertisementImages/FERRARI-488-Pista-6247_4.jpg" alt="">
-        <img src="../images/advertisementImages/FERRARI-488-Pista-6247_6.jpg" alt="">
-        <img src="../images/advertisementImages/FERRARI-488-Pista-6247_7.jpg" alt="">
+        <img src="<?php echo $advertisement_obj->advertisement->images->foto1 ?>"
+          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+        <img src="<?php echo $advertisement_obj->advertisement->images->foto2 ?>"
+          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+        <img src="<?php echo $advertisement_obj->advertisement->images->foto3 ?>"
+          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+        <img src="<?php echo $advertisement_obj->advertisement->images->foto4 ?>"
+          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+        <img src="<?php echo $advertisement_obj->advertisement->images->foto5 ?>"
+          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
       </section>
     </div>
-
-    <!-- <div class="row mt-5">
-      <div class="col-md-12">
-        <h2>Otras imágenes del coche</h2>
-        <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="../images/advertisementImages/FERRARI-488-Pista-6247_2.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="../images/advertisementImages/FERRARI-488-Pista-6247_3.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="../images/advertisementImages/FERRARI-488-Pista-6247_4.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="../images/advertisementImages/FERRARI-488-Pista-6247_6.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="../images/advertisementImages/FERRARI-488-Pista-6247_7.jpg" class="d-block w-100" alt="...">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselId"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselId"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-    </div> -->
   </div>
 </body>
 
