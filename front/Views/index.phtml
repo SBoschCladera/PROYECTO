@@ -2,10 +2,7 @@
 /**
  * @var array $advertisements
  * @var array $brands
- * @var array $vehicleTypes
- * @var int $selectedAdvertisementId
- * @var int $selectedBrandId 
- * @var int $selectedvehicleTypeId
+ * @var array $vehicleTypes 
  */
 ?>
 
@@ -23,18 +20,21 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-        <!-- Scripts -->
+    <!-- Link FontAwesome -->
+    <script src="https://kit.fontawesome.com/e83e9a2953.js" crossorigin="anonymous"></script>
+    <!-- Archivos CSS -->
     <link rel="stylesheet" href="../CSS/styles.css">
-    <script src="../JS/list.js"></script> 
-    <script src="../JS/optionsLogic.js"></script> 
-    <script src="../JS/createElements.js"></script> 
+    <link rel="stylesheet" href="../CSS/signUplogInStyles.css">
+    <!-- Scripts JS -->
+    <script src="../JS/list.js"></script>
+    <script src="../JS/optionsLogic.js"></script>
+    <script src="../JS/createElements.js"></script>
 </head>
 
 <body>
 
-    <?php include("../Controllers/initController.php"); ?>
+    <!-- <?php include("../Controllers/initController.php"); ?> -->
 
-    <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <a class="navbar-brand" href="#">tunuevocoche.com</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -66,18 +66,34 @@
             </form>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary mr-2 bg-light" href="logIn.phtml">Iniciar sesión</a>
+                    <?php if (!isset($_SESSION["mail"])) { ?>
+                        <a class="nav-link btn btn-primary bg-light"
+                            href="../Controllers/signUpController.php">Registrarse</a>
+                    <?php } else { ?>
+                        <div style="position: absolute; top: 60px; right:10px">
+                            <h6 class="text-right"><span>Logueado como:
+                                    <?php echo $_SESSION["mail"] ?>
+                                </span></h6>
+                        </div>
+                    <?php } ?>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-primary bg-light" href="signUp.phtml">Registrarse</a>
+                    <?php if (!isset($_SESSION["mail"])) { ?>
+                        <a class="nav-link btn btn-primary ml-2 bg-light" href="../Controllers/loginController.php">Iniciar
+                            sesión</a>
+                    <?php } else { ?>
+                        <a class="nav-link btn btn-primary ml-2 bg-light" href="../Controllers/logoutController.php">Cerrar
+                            sesión</a>
+                    <?php } ?>
                 </li>
             </ul>
         </div>
     </nav>
 
+
     <!-- Contenido principal -->
 
-    <h1 class="text-center mb-5">Busca tu nuevo coche</h1>
+    <h1 class="text-center mb-5 mt-5"> Bienvenido a tunuevocoche.com</h1>
 
     <!-- Filtro de búsqueda -->
 
@@ -88,7 +104,6 @@
                     Busca tu vehículo
                 </div>
                 <div class="card-body">
-                    <!-- <form> -->
                     <div class="form-group">
                         <label for="vehicleTypeLabel">Tipo de vehículo:</label>
                         <select class="form-control" id="vehicleType" onchange="optionValue(this.value)">
@@ -130,54 +145,46 @@
                         <input type="number" class="form-control" id="maxPrice" step="1000" min="0" value="">
                     </div>
                     <button class="btn btn-primary" onclick="sendData()" id="buttonData">Buscar</button>
-                    <!-- </form> -->
                 </div>
             </div>
         </div>
 
-        <!-- Modelos de vehículos -->
+        <!-- Carrusel / Modelos de vehículos -->
 
-        <script>
-            toListAdvertisements();            
-        </script>
+        <div class="row mt-4 ms-5 col-md-8 carouselClass" id="containerCarousel">
+            <div class="col-md-10 ms-5">
+                <div id="carouselId" class="carousel slide carousel-fade ms-5" data-bs-ride="carousel">
+                    <div class="carousel-inner">
 
-        <!-- <?php $counter = 0;
+                        <?php shuffle($advertisements); ?>
+                        <div class="carousel-item active" data-bs-interval="3000">
+                            <img src="<?php echo $advertisements[0]->images->foto1 ?>" class="d-block w-100 carouselImg"
+                                alt="...">
+                        </div>
 
-        foreach ($advertisements as $advertisement) {
+                        <?php for ($i = 0; $i < count($advertisements); $i++) { ?>
 
-            if ($counter > 2 && ($counter % 3 == 0)) { ?>
-                <div class="col-md-2 mt-4 separator"></div>
-            <?php } ?>
-
-            <div class="col-md-3 mt-4 portada ml-3 mb-3">
-                <div class="card sonDiv">
-                    <img src="<?php echo $advertisement->images->foto1 ?>" class="card-img-top"
-                        alt="Imagen de un <?php echo $advertisement->brand_id->name ?>">
-                    <div class="card-body advertisementTextDiv">
-                        <h5 class="card-title">
-                            <?php echo $advertisement->brand_id->name . " " . $advertisement->model_id->name . " " . $advertisement->model_id->series ?>
-                        </h5>
-                        <img src="<?php echo $advertisement->brand_id->logo ?>" class="float-right photoLogo"
-                            alt="Imagen del logo" <?php echo $advertisement->brand_id->name ?>>
-                        <p class="card-text">
-                            <?php echo $advertisement->description ?>
-                        </p>
-                        <h5 class="card-text price">
-                            <?php echo $advertisement->price ?>
-                        </h5>
-                        <p class="card-text">
-                            <?php echo $advertisement->motorization_id->power . "CV - " . $advertisement->model_id->engineType_id->name ?>
-                        </p>
-                        <p class="card-text">
-                            <?php echo $advertisement->km . " km" ?>
-                        </p>
-                        <a href="#" class="btn btn-primary">Ver detalles</a>
+                            <div class="carousel-item" data-bs-interval="3000">
+                                <img src="<?php echo $advertisements[$i + 1]->images->foto1 ?>"
+                                    class="d-block w-100 carouselImg" alt="...">
+                            </div>
+                        <?php } ?>
                     </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselId"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselId"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
-            <?php $counter = $counter + 1;
-        } ?> -->
-    </div>  
+        </div>
+    </div>
+
 </body>
 
 </html>
