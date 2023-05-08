@@ -103,25 +103,25 @@ class AdvertisementListModel
     public function getUser($id): User
     {
         if (!is_null($id)) {
-            $sql = "SELECT id, email, password FROM user_app WHERE id = " . $id;
+            $sql = "SELECT id, mail, password FROM user_app WHERE id = " . $id;
             $this->db->default();
             $query = $this->db->query($sql);
             $this->db->close();
             $result = $query->fetch_assoc();
-            return new User($result["id"], $result["email"], $result["password"]);
+            return new User($result["id"], $result["mail"], $result["password"]);
         }
         return new User(0, "-", "-");
     }
     public function getSellerUser($id): SellerUser
     {
         if (!is_null($id)) {
-            $sql = "SELECT id, name, NIF, email, phoneNumber, user_app_id FROM seller_user WHERE id = " . $id;
+            $sql = "SELECT id, name, NIF, mail, phoneNumber, user_app_id FROM seller_user WHERE id = " . $id;
             $this->db->default();
             $query = $this->db->query($sql);
             $this->db->close();
             $result = $query->fetch_assoc();
 
-            return new SellerUser($result["id"], $result["name"], $result["NIF"], $result["email"], $result["phoneNumber"], $result["user_app_id"]);
+            return new SellerUser($result["id"], $result["name"], $result["NIF"], $result["mail"], $result["phoneNumber"], $result["user_app_id"]);
         }
         $user = new User(0, "-", "-");
         return new SellerUser(0, "-", "-", "-", "-", 0);
@@ -140,8 +140,8 @@ class AdvertisementListModel
                        motorization.displacement AS displacement, motorization.power AS power, benefits.id AS benefitsId, benefits.max_velocity AS maxVelocity, 
                        benefits.acceleration_0_100 AS acceleration, benefits.consumption AS consumption, multimedia.photo1 AS photo1, multimedia.photo2 AS photo2, 
                        multimedia.photo3 AS photo3, multimedia.photo4 AS photo4, multimedia.photo5 AS photo5, advertisement.seller_user_id AS advertisementSellerId, 
-                       seller_user.id AS sellerUserId, seller_user.name AS sellerUserName, seller_user.NIF AS NIF, seller_user.email AS email, 
-                       seller_user.phoneNumber AS phoneNumber, seller_user.user_app_id AS userSellerUserAppId, user_app.id AS userAppId,  user_app.email AS userAppEmail, 
+                       seller_user.id AS sellerUserId, seller_user.name AS sellerUserName, seller_user.NIF AS NIF, seller_user.mail AS mail, 
+                       seller_user.phoneNumber AS phoneNumber, seller_user.user_app_id AS userSellerUserAppId, user_app.id AS userAppId,  user_app.mail AS userAppMail, 
                        user_app.password AS userAppPassword, multimedia.id AS multimediaId
                 FROM advertisement     
                 INNER JOIN model ON advertisement.model_id = model.id
@@ -174,14 +174,14 @@ class AdvertisementListModel
             $multimedia = new Multimedia($result['multimediaId'], $model, $result['photo1'], $result['photo2'], $result['photo3'], $result['photo4'], $result['photo5']);
 
             if (!is_null($result["userAppId"])) {
-                $user = new User($result["userAppId"], $result["userAppEmail"], $result["userAppPassword"]);
+                $user = new User($result["userAppId"], $result["userAppMail"], $result["userAppPassword"]);
             } else {
                 $user = new User(0, "-", "-");
             }
 
 
             if (!is_null($result["sellerUserId"])) {
-                $sellerUser = new SellerUser($result["sellerUserId"], $result["sellerUserName"], $result["NIF"], $result["email"], $result["phoneNumber"], $result["userSellerUserAppId"]);
+                $sellerUser = new SellerUser($result["sellerUserId"], $result["sellerUserName"], $result["NIF"], $result["mail"], $result["phoneNumber"], $result["userSellerUserAppId"]);
             } else {
                 //$sellerUser = new SellerUser(0, "-", "-" . "-", "-", 0);
             }
@@ -233,8 +233,8 @@ class AdvertisementListModel
                        motorization.displacement AS displacement, motorization.power AS power, benefits.id AS benefitsId, benefits.max_velocity AS maxVelocity, 
                        benefits.acceleration_0_100 AS acceleration, benefits.consumption AS consumption, multimedia.photo1 AS photo1, multimedia.photo2 AS photo2, 
                        multimedia.photo3 AS photo3, multimedia.photo4 AS photo4, multimedia.photo5 AS photo5, advertisement.seller_user_id AS advertisementSellerId, 
-                       seller_user.id AS sellerUserId, seller_user.name AS sellerUserName, seller_user.NIF AS NIF, seller_user.email AS email, 
-                       seller_user.phoneNumber AS phoneNumber, seller_user.user_app_id AS userSellerUserAppId, user_app.id AS userAppId,  user_app.email AS userAppEmail, 
+                       seller_user.id AS sellerUserId, seller_user.name AS sellerUserName, seller_user.NIF AS NIF, seller_user.mail AS mail, 
+                       seller_user.phoneNumber AS phoneNumber, seller_user.user_app_id AS userSellerUserAppId, user_app.id AS userAppId,  user_app.mail AS userAppMail, 
                        user_app.password AS userAppPassword, multimedia.id AS multimediaId
             FROM advertisement     
             INNER JOIN model ON advertisement.model_id = model.id
@@ -263,14 +263,14 @@ class AdvertisementListModel
         $benefits = new Benefits($result["benefitsId"], $model, $result["maxVelocity"], $result["acceleration"], $result["consumption"]);
 
         if (!is_null($result["userAppId"])) {
-            $user = new User($result["userAppId"], $result["userAppEmail"], $result["userAppPassword"]);
+            $user = new User($result["userAppId"], $result["userAppMail"], $result["userAppPassword"]);
         } else {
             $user = new User(0, "-", "-");
         }
 
 
         if (!is_null($result["sellerUserId"])) {
-            $sellerUser = new SellerUser($result["sellerUserId"], $result["sellerUserName"], $result["NIF"], $result["email"], $result["phoneNumber"], $result["userSellerUserAppId"]);
+            $sellerUser = new SellerUser($result["sellerUserId"], $result["sellerUserName"], $result["NIF"], $result["mail"], $result["phoneNumber"], $result["userSellerUserAppId"]);
         } else {
             //$sellerUser = new SellerUser(0, "-", "-" . "-", "-", 0);
         }
@@ -326,7 +326,6 @@ class AdvertisementListModel
         }
         return $vehicleTypes;
     }
-
     public function getTotalAdvertisements(): int
     {
         $sql = "SELECT count(id) AS numAnuncios FROM advertisement";
