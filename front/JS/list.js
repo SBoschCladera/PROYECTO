@@ -1,9 +1,5 @@
 // Número de anuncios que se muestran en pantalla
-document.onload = function () {    
-    //totalAdvertisements();
-    
-}
-numAdvertisements = 118;
+numAdvertisements = 118
 
 // Obtiene el número total de anuncios que se mostrarán en pantalla
 function totalAdvertisements() {
@@ -13,7 +9,7 @@ function totalAdvertisements() {
         // Si la solicitud se completa con éxito, parsea los datos de respuesta y los pasa a la función makeList
         if (this.readyState == 4 && this.status == 200) {
             var data = JSON.parse(this.responseText);
-            numAdvertisements = data.total;
+            loco['total'] = data.total;
         }
     };
     xhttp.open("POST", "../../back/Controllers/totalAdvertisementsController.php", true);
@@ -29,6 +25,7 @@ function toListAdvertisements() {
         // Si la solicitud se completa con éxito, parsea los datos de respuesta y los pasa a la función makeList
         if (this.readyState == 4 && this.status == 200) {
             var data = JSON.parse(this.responseText);
+            numAdvertisements;
             makeList(data, numAdvertisements);
         }
     };
@@ -49,52 +46,6 @@ function makeList(data, listNum) {
         makeCard(i, i, data.advertisements)
     }
 }
-
-
-//Muestra los anunciones en pantalla según las opciones seleccionadas de los selects
-function sendData() {
-
-    // Obtiene los valores de los campos del formulario
-    let selectVehicleTypeValue = document.getElementById('vehicleType').value;
-    let selectBrandValue = document.getElementById('brand').value;
-   let selectModelValue = document.getElementById('model').value;
-    let modelSelect = document.getElementById('model');
-    let modelSelectName = modelSelect.options[modelSelect.selectedIndex].text;
-    let maxPriceValue = document.getElementById('maxPrice').value;
-
-    // Crear una instancia de XMLHttpRequest
-    let xhr = new XMLHttpRequest();
-
-    // Configurar la solicitud
-    xhr.open('POST', '../../back/Controllers/listController.php');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-    // Definir la función que se llamará cuando la solicitud se complete
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            let data = JSON.parse(this.responseText);
-            let counter = 0;
-
-            // Buscar el div que deseas verificar por su clase
-            let divToDelete = document.getElementById("notFoundMatchesDiv");
-
-            if (divToDelete !== null) {
-                divToDelete.remove();
-            }
-
-            // Recorrer todos los elementos y los elimina
-            divDeleter();
-
-    for (let i = 0; i < listNum; i++) {
-
-        // Condición para añadir un "div" separador para continuar con el formato HTML de la primera fila de anuncios
-        alignedDiv(i);
-
-        // Crea un anuncio con bootstrap       
-        makeCard(i, i, data.advertisements)
-    }
-}
-
 
 //Muestra los anunciones en pantalla según las opciones seleccionadas de los selects
 function sendData() {
@@ -213,3 +164,41 @@ function sendData() {
     document.getElementById('maxPrice').value = "";
 }
 
+
+/**  query para el buscador
+ select advertisement.description AS description, advertisement.price AS price, model.name AS modelName, advertisement.color AS color,
+advertisement.km AS km, brand.name as brandName, motorization.power AS power, vehicle_type.name AS vehicleTypeName,
+benefits.max_velocity as maxVelocity, benefits.acceleration_0_100 AS acceleration, benefits.consumption as consumption
+from advertisement 
+INNER JOIN model ON model.id = advertisement.model_id
+INNER JOIN brand ON brand.id = advertisement.brand_id
+INNER JOIN motorization ON motorization.id = advertisement.motorization_id
+INNER JOIN vehicle_type ON vehicle_type.id = model.vehicle_type_id
+INNER JOIN benefits ON benefits.id = advertisement.benefits_id
+where description like '%Ci%' || price like '%10%'|| model.name like '%Po%' || color like '%ro%' || km like '%21%' || brand.name like '%Do%'
+      || motorization.displacement like '%1.%' || vehicle_type.name like '%Mo%'|| benefits.max_velocity like '%20%' || benefits.acceleration_0_100 like '%4%' 
+      || benefits.consumption like '%7%';
+ */
+
+
+// function modoOscuro() {
+
+//     document.body.classList.add("darkMode");
+//     let cards = document.getElementsByClassName('card');
+//     for (let i = 0; i < cards.length; i++) {
+//         document.getElementsByClassName('card')[i].classList.add("darkMode");
+//     }
+//     let selects = document.getElementsByClassName('form-control');
+//     for (let i = 0; i < selects.length; i++) {
+//         document.getElementsByClassName('form-control')[i].classList.add("darkMode");
+//     }
+//     let options = document.getElementsByClassName('optionsClassName');
+//     for (let i = 0; i < options.length; i++) {
+//         document.getElementsByClassName('optionsClassName')[i].classList.add("darkMode");
+//     }
+//     let cardsBody = document.getElementsByClassName('card-body');
+//     for (let i = 0; i < cardsBody.length; i++) {
+//         document.getElementsByClassName('card-body')[i].classList.add("darkMode");
+//     }
+
+// }
