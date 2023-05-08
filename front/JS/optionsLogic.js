@@ -18,7 +18,7 @@ function optionValue(selectedId) {
             option.setAttribute('class', 'optionsClassName')
             document.getElementById("brand").appendChild(option);
 
-             // Elimina todas las opciones existentes en los elemento select "brand" y "model", excepto la opción predeterminada
+            // Elimina todas las opciones existentes en los elemento select "brand" y "model", excepto la opción predeterminada
             while (document.getElementById('brand').options.length > 1) {
                 document.getElementById('brand').remove(1);
                 document.getElementById('model').remove(1);
@@ -29,7 +29,7 @@ function optionValue(selectedId) {
 
             // Itera a través de los datos JSON y crea opciones adicionales en el elemento select
             for (let i = 0; i < data.advertisements.length; i++) {
-                let idVehicle = data.advertisements[i].model_id.vehicleType_id.id
+                let idVehicle = data.advertisements[i].model_id.vehicleType_id.id;
                 let value = data.advertisements[i].brand_id.id;
                 let text = data.advertisements[i].brand_id.name;
 
@@ -65,7 +65,7 @@ function optionValue(selectedId) {
                 let value = totalBrandsId[j];
                 let text = totalBrandsName[j];
 
-               createOption(value, text, 'brand', 'optionsClassName');
+                createOption(value, text, 'brand', 'optionsClassName');
             }
         }
     };
@@ -75,6 +75,7 @@ function optionValue(selectedId) {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send("id=" + selectedId);
 }
+
 
 // Actualiza un elemento select con id "model".
 function optionModelValue(selectedBrandId) {
@@ -147,3 +148,5 @@ function fillArray(brandsWithoutVehicleIdName, brandsWithoutVehicleIdValue, text
         brandsWithoutVehicleIdValue.push(value);
     }
 }
+
+
