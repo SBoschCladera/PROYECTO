@@ -26,7 +26,7 @@ function makeCard(cont, cont2, data) {
     let km = createParagraf('card-text', `${data[cont].km} Km.`);
     grandsonDiv.appendChild(km);
 
-    let link = createLinks('btn btn-primary', `idCar${data[cont].model_id.id}`, '../Views/singleAdvertisement.phtml', 'Ver detalles');
+    let link = createLinks('btn btn-primary', `idCar${data[cont].model_id.id}`, ` ../Controllers/singleAdvertisementController.php?id=${data[cont].id}`, 'Ver detalles');
     grandsonDiv.appendChild(link);
 
     sonDiv.appendChild(grandsonDiv);
@@ -39,6 +39,7 @@ function makeCard(cont, cont2, data) {
 function divDeleter() {
     let div1 = document.querySelectorAll(".anuncio");
     let div2 = document.querySelectorAll(".separatorClass");
+    let div3 = document.querySelectorAll(".carouselClass");
 
     for (let j = 0; j < div1.length; j++) {
         div1[j].remove();
@@ -47,9 +48,13 @@ function divDeleter() {
     for (let j = 0; j < div2.length; j++) {
         div2[j].remove();
     }
+
+    for (let j = 0; j < div3.length; j++) {
+        div3[j].remove();
+    }
 }
 
-// Condiciones par amaquetado de anuncios en pantalla
+// Condiciones para maquetado de anuncios en pantalla
 function alignedDiv(cont) {
     if (cont > 2 && (cont % 3 == 0)) {
         let separator = createDiv("col-md-2 mt-4 separatorClass", 'separatorDiv')
@@ -118,6 +123,7 @@ function createLinks(className, id, href, text) {
     link.appendChild(linkText);
 
     return link;
+}
 
 // Crea y devuelve un elemento button <button> con los parámetros indicados
 function createButton(type, className, data, text) {
@@ -132,8 +138,7 @@ function createButton(type, className, data, text) {
 }
 
 // Mensaje si no se encuentran resultados
-function notFoundMatches() {
-
+function notFoundMatches(id) {
     let div1 = createDiv('messageDiv', 'notFoundMatchesDiv');
     let h5 = createH5('notFoundH5', '¿Resultados? No veo nada aquí excepto algunos gatitos adorables. Lo siento.');
     let div2 = createDiv('catsDiv', 'catsId');
@@ -141,13 +146,13 @@ function notFoundMatches() {
     let img2 = createImage('../images/cats/cat-peach.gif', 'cuteCats', 'gatitos adorables');
 
     div2.appendChild(img1);
-    div2.appendChild(img2);   
-    div1.appendChild(h5);  
+    div2.appendChild(img2);
+    div1.appendChild(h5);
     div1.appendChild(div2);
 
-    let h5b = createH5('notFoundH5b', '¡Inténtalo de nuevo!');
-    div1.appendChild(h5b)
-    document.getElementById('result').appendChild(div1)
+    let h5b = createH5('notFoundH5b', '¡Inténtalo de nuevo!"');
+    div1.appendChild(h5b);
+    document.getElementById(id).appendChild(div1);
 
     return div1;
 }
