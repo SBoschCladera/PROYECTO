@@ -1,4 +1,4 @@
-   CREATE DATABASE IF NOT EXISTS cars_DB;
+CREATE DATABASE IF NOT EXISTS cars_DB;
 
 USE cars_DB;
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS benefits (
      id INT AUTO_INCREMENT NOT NULL,
      model_id INT NOT NULL,
      max_velocity INT NOT NULL,
-     acceleration_0_100 INT NOT NULL,
+     acceleration_0_100 DECIMAL(4, 2) NOT NULL,
      consumption DECIMAL(4, 2) NOT NULL,
      PRIMARY KEY (id),
      FOREIGN KEY(model_id) REFERENCES model(id)
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS benefits (
 
 CREATE TABLE IF NOT EXISTS user_app (
      id INT AUTO_INCREMENT NOT NULL,
-     email VARCHAR(250) NOT NULL,
+     mail VARCHAR(250) NOT NULL,
      password VARCHAR(255) NOT NULL,
      PRIMARY KEY (id)
 );
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS seller_user (
      id INT AUTO_INCREMENT NOT NULL,
      name VARCHAR(250) NOT NULL,
      NIF VARCHAR(12) NOT NULL,
-     email VARCHAR(255) NOT NULL,
+     mail VARCHAR(255) NOT NULL,
      phoneNumber VARCHAR(20) NOT NULL,
      user_app_id INT(10) NOT NULL,
      PRIMARY KEY (id),
@@ -405,7 +405,7 @@ VALUES
      ('MT', '09', 1, 2019, 26, 3),
      ('SuperSport', 'S', 1, 2017, 25, 3),
      ('Monster', '821', 1, 2018, 23, 3),
-     ('Ram 1500', 'DT', 2, '2022', 22, 2),
+     ('Ram', '1500 DT', 2, '2022', 22, 2),
      ('F-150', 'TW14', 2, '2022', 2, 2),
      ('Sierra 1500', 'T1SC', 1, '2021', 24, 2),
      ('Tundra', 'XK80', 1, '2022', 1, 2),
@@ -667,7 +667,7 @@ VALUES
 
 -- Insertar registro en la tabla usuario_app
 INSERT INTO
-     user_app (email, password)
+     user_app (mail, password)
 VALUES
      ('juangarcia@example.com', 'secreto123'),
      ('mariahernandez@example.com', 'clave456'),
@@ -692,7 +692,7 @@ VALUES
 
 -- Insertar registro en la tabla propietario
 INSERT INTO
-     seller_user (name, NIF, email, phoneNumber, user_app_id)
+     seller_user (name, NIF, mail, phoneNumber, user_app_id)
 VALUES
      (
           'Juan García',
@@ -850,8 +850,8 @@ VALUES
           2,
           '../images/advertisementImages/FORD-F-150-Super-Crew-4069_23.jpg',
           '../images/advertisementImages/FORD-F-150-Super-Crew-4069_30.jpg',
-          '../images/advertisementImages/FORD-F-150-Super-Crew-4069_31',
-          '../images/advertisementImages/FORD-F-150-Super-Crew-4069_38',
+          '../images/advertisementImages/FORD-F-150-Super-Crew-4069_31.jpg',
+          '../images/advertisementImages/FORD-F-150-Super-Crew-4069_38.jpg',
           '../images/advertisementImages/FORDF-150SuperCrew-4069_17.jpg'
      ),
      (
@@ -3444,13 +3444,13 @@ VALUES
 
 -- Nuevo insert  en la tabla propietario
 INSERT INTO
-     user_app (email, password)
+     user_app (mail, password)
 VALUES
      ('minatonamikaze@gmail.com', 'clave123');
 
 -- Nuevo insert  en la tabla propietario
 INSERT INTO
-     seller_user (name, NIF, email, phoneNumber, user_app_id)
+     seller_user (name, NIF, mail, phoneNumber, user_app_id)
 VALUES
      (
           'Minato Namikaze',
