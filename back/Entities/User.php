@@ -3,18 +3,18 @@
 class User
 {
     public int $id;
-    public string $email;
+    public string $mail;
     public string $password;
 
     /**
      * @param int $id
-     * @param string $email
+     * @param string $mail
      * @param string $password
      */
-    public function __construct(int $id, string $email, string $password)
+    public function __construct(int $id, string $mail, string $password)
     {
         $this->id = $id;
-        $this->email = $email;
+        $this->mail = $mail;
         $this->password = $password;
     }
 
@@ -37,17 +37,17 @@ class User
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getMail(): string
     {
-        return $this->email;
+        return $this->mail;
     }
 
     /**
      * @param string
      */
-    public function setEmail(string $email): void
+    public function setMail(string $mail): void
     {
-        $this->email = $email;
+        $this->mail = $mail;
     }
 
     /**
