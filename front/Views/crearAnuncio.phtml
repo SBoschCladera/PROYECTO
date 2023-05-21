@@ -1,0 +1,176 @@
+<?php
+/**
+ * @var array $advertisements
+ * @var array $brands
+ * @var array $vehicleTypes 
+ * @var array $countries 
+ * @var array $engineTypes 
+ * @var array $models 
+ */
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inserción en tabla</title>
+
+</head>
+
+<body>
+
+    <form action="insert.php" method="POST">
+
+
+        /************************************************* vehicle_type ********************************** */
+        <div class="form-group">
+            <label for="vehicleTypeLabel">Tipo de vehículo:</label>
+            <select class="form-control" id="vehicleType" onchange="optionValue(this.value)">
+                <option value="0" class="optionsClassName" selected required>Todos los tipos</option>
+
+                <?php
+                sort($vehicleTypes);
+                foreach ($vehicleTypes as $vehicleType) { ?>
+                    <option value="<?php echo $vehicleType->id ?>" class="optionsClassName">
+                        <?php
+                        echo $vehicleType->name ?>
+                    </option>
+                <?php } ?>
+
+            </select>
+        </div><br>
+
+        /************************************************* country ******************************************** */
+        <div class="form-group">
+            <label for="countryLabel">País:</label>
+            <select class="form-control" id="country" onchange="optionValue(this.value)">
+                <option value="0" class="optionsClassName" selected required>Todos los países</option>
+
+                <?php
+                sort($countries);
+                foreach ($countries as $country) { ?>
+                    <option value="<?php echo $country->id ?>" class="optionsClassName">
+                        <?php
+                        echo $country->name ?>
+                    </option>
+                <?php } ?>
+
+            </select>
+        </div><br>
+
+        /************************************************* brand ******************************************** */
+
+        <div class="form-group">
+            <label for="brandLabel">Marca:</label>
+            <select class="form-control" id="brand" onchange="optionModelValue(this.value) required">
+                <option value="0" class="optionsClassName" selected>Todas las marcas</option>
+
+                <?php
+                sort($brands);
+                foreach ($brands as $brand) { ?>
+                    <option value="<?php echo $brand->id ?>" class="optionsClassName">
+                        <?php
+                        echo $brand->name ?>
+                    </option>
+                <?php } ?>
+
+            </select>
+        </div><br>
+        /************************************************* engine_type ******************************************** */
+        <div class="form-group">
+            <label for="engineTypeLabel">Tipos de motor:</label>
+            <select class="form-control" id="engineType" onchange="optionModelValue(this.value) required">
+                <option value="0" class="optionsClassName" selected>Todas los tipos de motor</option>
+
+                <?php
+                sort($engineTypes);
+                foreach ($engineTypes as $engineType) { ?>
+                    <option value="<?php echo $engineType->id ?>" class="optionsClassName">
+                        <?php
+                        echo $engineType->name ?>
+                    </option>
+                <?php } ?>
+
+            </select>
+        </div><br>
+
+        /************************************************* model ******************************************** */
+        <div class="form-group">
+            <label for="modelLabel">Tipos de motor:</label>
+            <select class="form-control" id="model" onchange="optionModelValue(this.value) required">
+                <option value="0" class="optionsClassName" selected>Todas los modelos</option>
+
+                <?php                         
+
+                foreach ($models as $model) { ?>
+                    <option value="<?php echo $model->id ?>" class="optionsClassName">
+                        <?php
+                        echo $model->name ?>
+                    </option>
+                <?php } ?>
+
+            </select><br><br>
+
+            <label for="series">Serie:</label>
+            <input type="text" id="series" name="series">
+            <br>
+
+        </div><br>
+
+        /************************************************* model ******************************************** */
+
+        <!-- /*********************************************** */ -->
+
+        <label for="description">Descripción:</label>
+        <textarea id="description" name="description" required></textarea>
+        <br>
+        <label for="price">Precio:</label>
+        <input type="number" id="price" name="price" step="1" min="0" required>
+        <br>
+        <label for="publication_date">Fecha de publicación:</label>
+        <input type="date" id="publication_date" name="publication_date" required>
+        <br>
+        <label for="model_id">ID del modelo:</label>
+        <input type="number" id="model_id" name="model_id" required>
+        <br>
+        <label for="seller_user_id">ID del vendedor:</label>
+        <input type="number" id="seller_user_id" name="seller_user_id" required>
+        <br>
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="color">
+        <br>
+        <label for="km">Kilómetros:</label>
+        <input type="number" id="km" name="km" required>
+        <br>
+        <label for="multimedia_id">ID del multimedia:</label>
+        <input type="number" id="multimedia_id" name="multimedia_id" required>
+        <br>
+
+
+        <label for="motorization_id">ID de la motorización:</label>
+        <input type="number" id="motorization_id" name="motorization_id" required>
+        <br>
+        <label for="benefits_id">ID de los beneficios:</label>
+        <input type="number" id="benefits_id" name="benefits_id" required>
+        <br>
+
+
+
+        <label for="latitude">Latitud:</label>
+        <input type="text" id="latitude" name="latitude" required>
+        <br>
+        <label for="longitude">Longitud:</label>
+        <input type="text" id="longitude" name="longitude" required>
+        <br>
+        <label for="disponibility">Disponibilidad:</label>
+        <select id="disponibility" name="disponibility" required>
+            <option value="1">Disponible</option>
+            <option value="0">No disponible</option>
+        </select>
+        <br>
+        <input type="submit" value="Insertar">
+    </form>
+</body>
+
+</html>
