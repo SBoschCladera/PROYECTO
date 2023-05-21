@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS model (
      name VARCHAR(50) NOT NULL,
      series VARCHAR(150) NOT NULL,
      engine_type_id INT NOT NULL,
-     release_year YEAR NOT NULL,
+     release_year date NOT NULL,
      brand_id INT NOT NULL,
      vehicle_type_id INT NOT NULL,
      PRIMARY KEY (id),
@@ -108,6 +108,9 @@ CREATE TABLE IF NOT EXISTS advertisement (
      motorization_id INT(10) NOT NULL,
      benefits_id INT(10) NOT NULL,
      engine_type_id INT(10) NOT NULL,
+     latitude VARCHAR(100) NOT NULL,
+     longitude VARCHAR(100) NOT NULL,
+     disponibility boolean NOT NULL,
      PRIMARY KEY (id),
      FOREIGN KEY(model_id) REFERENCES model(id),
      FOREIGN KEY(seller_user_id) REFERENCES seller_user(id),
@@ -294,128 +297,128 @@ INSERT INTO
           vehicle_type_id
      )
 VALUES
-     ('Corolla', 'SE', 1, 2022, 1, 1),
-     ('F-150', 'XLT', 2, 2021, 2, 2),
-     ('Golf', 'GTI', 1, 2020, 3, 1),
-     ('Clio', 'RS', 1, 2021, 4, 1),
-     ('Civic', 'Type R', 1, 2022, 5, 1),
-     ('X3', 'M', 1, 2021, 6, 1),
-     ('AMG GT', 'S', 1, 2022, 7, 1),
-     ('488', 'Pista', 1, 2021, 8, 1),
-     ('XC90', 'T8', 4, 2022, 9, 1),
-     ('GT-R', 'NISMO', 1, 2020, 10, 1),
-     ('Camaro', 'SS', 1, 2021, 11, 1),
-     ('Santa Fe', 'SEL', 1, 2022, 12, 1),
-     ('MX-5', 'RF', 1, 2021, 13, 1),
-     ('208', 'GTi', 1, 2021, 14, 1),
-     ('A3', 'S', 1, 2022, 15, 1),
-     ('Huracán', 'EVO', 1, 2022, 16, 1),
-     ('911', 'Turbo S', 1, 2021, 17, 1),
-     ('Sportage', 'GT-Line', 1, 2022, 18, 1),
-     ('WRX', 'STI', 1, 2020, 19, 1),
-     ('A3', '1.5 TFSI COD', 1, 2018, 15, 1),
-     ('A4', '2.0 TFSI', 1, 2016, 15, 1),
-     ('A Allroad', '2.0 TDI', 2, 2018, 15, 1),
-     ('A5', '2.0 TDI', 2, 2017, 15, 1),
-     ('A6', '2.0 TDI', 2, 2018, 15, 1),
-     ('A7', '3.0 TDI', 2, 2018, 15, 1),
-     ('A8', '3.0 TDI', 2, 2018, 15, 1),
-     ('Q2', '1.5 TFSI', 1, 2019, 15, 1),
-     ('Q3', '2.0 TFSI', 1, 2019, 15, 1),
-     ('Q3 Sportback', '2.0 TFSI', 1, 2019, 15, 1),
-     ('Q5', '2.0 TDI', 2, 2018, 15, 1),
-     ('Q7', '3.0 TDI', 2, 2018, 15, 1),
-     ('TT', '2.0 TFSI', 1, 2016, 15, 1),
-     ('i3', '33 kWh', 3, 2018, 6, 1),
-     ('i8', '1.5 PHEV', 3, 2018, 6, 1),
-     ('X1', '2.0 TDI', 2, 2018, 6, 1),
-     ('X2', '2.0 TDI', 2, 2018, 6, 1),
-     ('X3', '2.0 TDI', 2, 2018, 6, 1),
-     ('X4', '2.0 TDI', 2, 2018, 6, 1),
-     ('X5', '3.0 TDI', 2, 2018, 6, 1),
-     ('X6', '3.0 TDI', 2, 2018, 6, 1),
-     ('X7', '3.0 TDI', 2, 2018, 6, 1),
-     ('1 Series', '118i', 1, 2018, 6, 1),
-     ('2 Series', '218i', 1, 2018, 6, 1),
-     ('3 Series', '320i', 1, 2018, 6, 1),
-     ('Pilot', 'III', 2, '2022', 5, 1),
-     ('Jetta', 'V', 1, '2021', 3, 1),
-     ('Golf', 'VII', 2, '2022', 3, 1),
-     ('Tiguan', 'I', 1, '2021', 3, 1),
-     ('Touareg', 'III', 2, '2022', 3, 1),
-     ('C-HR', 'I', 1, '2021', 1, 1),
-     ('Camry', 'VII', 2, '2022', 1, 1),
-     ('RAV4', 'IV', 1, '2021', 1, 1),
-     ('Highlander', 'IV', 2, '2022', 1, 1),
-     ('X5', 'III', 1, '2021', 6, 1),
-     ('3 Series', 'G20', 2, '2022', 6, 1),
-     ('X3', 'III', 1, '2021', 6, 1),
-     ('5 Series', 'G30', 2, '2022', 6, 1),
-     ('Clio', 'V', 1, '2021', 4, 1),
-     ('Megane', 'IV', 2, '2022', 4, 1),
-     ('Captur', 'I', 1, '2021', 4, 1),
-     ('Kadjar', 'I', 2, '2022', 4, 1),
-     ('Fiesta', 'VI', 1, '2021', 2, 1),
-     ('Focus', 'IV', 2, '2022', 2, 1),
-     ('Kuga', 'III', 1, '2021', 2, 1),
-     ('Explorer', 'VI', 2, '2022', 2, 2),
-     ('Leon', 'IV', 1, '2021', 21, 1),
-     ('Ibiza', 'V', 2, '2022', 21, 1),
-     ('Arona', 'I', 1, '2021', 21, 1),
-     ('Ateca', 'I', 2, '2022', 21, 1),
-     ('S90', 'II', 1, '2021', 9, 1),
-     ('CR-V', 'V', 1, '2021', 5, 1),
-     ('Civic', 'X', 1, '2021', 5, 1),
-     ('Accord', 'XI', 2, '2022', 5, 1),
-     ('CX-5', 'KE', 4, '2012', 13, 1),
-     ('CR-V', 'RD', 3, '2012', 5, 1),
-     ('Rav4', 'XA30', 3, '2005', 1, 1),
-     ('Tiguan', '5N', 2, '2007', 3, 1),
-     ('EcoSport', 'B515', 4, '2003', 2, 1),
-     ('Explorer', 'U502', 1, '2011', 2, 1),
-     ('Escape', 'C520', 1, '2012', 2, 1),
-     ('Bronco', 'U725', 1, '2020', 2, 2),
-     ('Ram', 'DR', 1, '2009', 22, 2),
-     ('Wrangler', 'JK', 1, '2006', 28, 2),
-     ('Cherokee', 'KL', 1, '2014', 28, 2),
-     ('Soul', 'AM', 1, '2008', 18, 1),
-     ('Rio', 'JB', 1, '2005', 18, 1),
-     ('Sorento', 'BL', 1, '2002', 18, 1),
-     ('Cadenza', 'VG', 1, '2009', 18, 1),
-     ('C-Class', 'W203', 2, '2000', 7, 1),
-     ('E-Class', 'W211', 2, '2002', 7, 1),
-     ('GLA-Class', 'X156', 1, '2013', 7, 1),
-     ('CL-Class', 'C215', 2, '1999', 7, 1),
-     ('Kuga', 'C394', 2, '2008', 2, 1),
-     ('Fiesta', 'MK7', 1, '2008', 2, 1),
-     ('Focus', 'MK3', 1, '2010', 2, 1),
-     ('Mustang', 'S550', 1, '2015', 2, 1),
-     ('S60', 'P24', 4, '2010', 9, 1),
-     ('XC60', 'Y20', 1, '2008', 9, 1),
-     ('XC90', 'P28', 1, '2002', 9, 1),
-     ('Golf', 'MK7', 1, '2012', 3, 1),
-     ('Passat', 'B8', 2, '2014', 3, 1),
-     ('Touareg', '7L', 2, '2002', 3, 1),
-     ('Ibiza', 'Cupra', 2, '2022', 21, 1),
-     ('Ibiza', 'FR', 2, '2018', 21, 1),
-     ('Ibiza', 'FR', 2, '2017', 21, 1),
-     ('Ibiza', 'FR', 1, '2019', 21, 1),
-     ('Ninja', 'ZX-6R', 1, 2020, 26, 3),
-     ('CBR', '1000RR', 1, 2019, 5, 3),
-     ('MT', '09', 1, 2019, 26, 3),
-     ('SuperSport', 'S', 1, 2017, 25, 3),
-     ('Monster', '821', 1, 2018, 23, 3),
-     ('Ram', '1500 DT', 2, '2022', 22, 2),
-     ('F-150', 'TW14', 2, '2022', 2, 2),
-     ('Sierra 1500', 'T1SC', 1, '2021', 24, 2),
-     ('Tundra', 'XK80', 1, '2022', 1, 2),
+     ('Corolla', 'SE', 1, '2022-01-01 00:00:00', 1, 1),
+     ('F-150', 'XLT', 2, '2021-03-15 00:00:00', 2, 2),
+     ('Golf', 'GTI', 1, '2020-06-20 00:00:00', 3, 1),
+     ('Clio', 'RS', 1, '2021-08-10 00:00:00', 4, 1),
+     ('Civic', 'Type R', 1, '2022-02-28 00:00:00', 5, 1),
+     ('X3', 'M', 1, '2021-05-12 00:00:00', 6, 1),
+     ('AMG GT', 'S', 1, '2022-09-05 00:00:00', 7, 1),
+     ('488', 'Pista', 1, '2021-07-19 00:00:00', 8, 1),
+     ('XC90', 'T8', 4, '2022-11-30 00:00:00', 9, 1),
+     ('GT-R', 'NISMO', 1, '2020-04-03 00:00:00', 10, 1),
+     ('Camaro', 'SS', 1, '2021-12-25 00:00:00', 11, 1),
+     ('Santa Fe', 'SEL', 1, '2022-10-17 00:00:00', 12, 1),
+     ('MX-5', 'RF', 1, '2021-09-08 00:00:00', 13, 1),
+     ('208', 'GTi', 1, '2021-06-06 00:00:00', 14, 1),
+     ('A3', 'S', 1, '2022-03-25 00:00:00', 15, 1),
+     ('Huracán', 'EVO', 1, '2022-07-14 00:00:00', 16, 1),
+     ('911', 'Turbo S', 1, '2021-11-11 00:00:00', 17, 1),
+     ('Sportage', 'GT-Line', 1, '2022-08-01 00:00:00', 18, 1),
+     ('WRX', 'STI', 1, '2020-09-30 00:00:00', 19, 1),
+     ('A3', '1.5 TFSI COD', 1, '2018-12-04 00:00:00', 15, 1),
+     ('A4', '2.0 TFSI', 1, '2016-07-22 00:00:00', 15, 1),
+     ('A Allroad', '2.0 TDI', 2, '2018-09-16 00:00:00', 15, 1),
+     ('A5', '2.0 TDI', 2, '2017-05-09 00:00:00', 15, 1),
+     ('A6', '2.0 TDI', 2, '2018-11-27 00:00:00', 15, 1),
+     ('A7', '3.0 TDI', 2, '2018-06-13 00:00:00', 15, 1),
+     ('A8', '3.0 TDI', 2, '2018-03-07 00:00:00', 15, 1),
+     ('Q2', '1.5 TFSI', 1, '2019-04-16 00:00:00', 15, 1),
+     ('Q3', '2.0 TFSI', 1, '2019-11-25 00:00:00', 15, 1),
+     ('Q3 Sportback', '2.0 TFSI', 1, '2019-08-02 00:00:00', 15, 1),
+     ('Q5', '2.0 TDI', 2, '2018-03-13 00:00:00', 15, 1),
+     ('Q7', '3.0 TDI', 2, '2018-07-27 00:00:00', 15, 1),
+     ('TT', '2.0 TFSI', 1, '2016-09-10 00:00:00', 15, 1),
+     ('i3', '33 kWh', 3, '2018-12-19 00:00:00', 6, 1),
+     ('i8', '1.5 PHEV', 3, '2018-06-05 00:00:00', 6, 1),
+     ('X1', '2.0 TDI', 2, '2018-10-18 00:00:00', 6, 1),
+     ('X2', '2.0 TDI', 2, '2018-11-30 00:00:00', 6, 1),
+     ('X3', '2.0 TDI', 2, '2018-08-15 00:00:00', 6, 1),
+     ('X4', '2.0 TDI', 2, '2018-07-02 00:00:00', 6, 1),
+     ('X5', '3.0 TDI', 2, '2018-04-12 00:00:00', 6, 1),
+     ('X6', '3.0 TDI', 2, '2018-06-21 00:00:00', 6, 1),
+     ('X7', '3.0 TDI', 2, '2018-03-29 00:00:00', 6, 1),
+     ('1 Series', '118i', 1, '2018-02-24 00:00:00', 6, 1),
+     ('2 Series', '218i', 1, '2018-09-06 00:00:00', 6, 1),
+     ('3 Series', '320i', 1, '2018-07-01 00:00:00', 6, 1),
+     ('Pilot', 'III', 2, '2022-09-05 00:00:00', 5, 1),
+     ('Jetta', 'V', 1, '2021-11-08 00:00:00', 3, 1),
+     ('Golf', 'VII', 2, '2022-02-16 00:00:00', 3, 1),
+     ('Tiguan', 'I', 1, '2021-04-27 00:00:00', 3, 1),
+     ('Touareg', 'III', 2, '2022-01-09 00:00:00', 3, 1),
+     ('C-HR', 'I', 1, '2021-06-12 00:00:00', 1, 1),
+     ('Camry', 'VII', 2, '2022-04-03 00:00:00', 1, 1),
+     ('RAV4', 'IV', 1, '2021-08-19 00:00:00', 1, 1),
+     ('Highlander', 'IV', 2, '2022-06-27 00:00:00', 1, 1),
+     ('X5', 'III', 1, '2021-12-03 00:00:00', 6, 1),
+     ('3 Series', 'G20', 2, '2022-09-11 00:00:00', 6, 1),
+     ('X3', 'III', 1, '2021-07-08 00:00:00', 6, 1),
+     ('5 Series', 'G30', 2, '2022-04-16 00:00:00', 6, 1),
+     ('Clio', 'V', 1, '2021-09-22 00:00:00', 4, 1),
+     ('Megane', 'IV', 2, '2022-08-14 00:00:00', 4, 1),
+     ('Captur', 'I', 1, '2021-11-01 00:00:00', 4, 1),
+     ('Kadjar', 'I', 2, '2022-07-18 00:00:00', 4, 1),
+     ('Fiesta', 'VI', 1, '2021-05-05 00:00:00', 2, 1),
+     ('Focus', 'IV', 2, '2022-03-12 00:00:00', 2, 1),
+     ('Kuga', 'III', 1, '2021-10-30 00:00:00', 2, 1),
+     ('Explorer', 'VI', 2, '2022-02-09 00:00:00', 2, 2),
+     ('Leon', 'IV', 1, '2021-06-27 00:00:00', 21, 1),
+     ('Ibiza', 'V', 2, '2022-04-03 00:00:00', 21, 1),
+     ('Arona', 'I', 1, '2021-08-15 00:00:00', 21, 1),
+     ('Ateca', 'I', 2, '2022-01-24 00:00:00', 21, 1),
+     ('S90', 'II', 1, '2021-07-12 00:00:00', 9, 1),
+     ('CR-V', 'V', 1, '2021-09-10 00:00:00', 5, 1),
+     ('Civic', 'X', 1, '2021-12-28 00:00:00', 5, 1),
+     ('Accord', 'XI', 2, '2022-05-07 00:00:00', 5, 1),
+     ('CX-5', 'KE', 4, '2012-02-18 00:00:00', 13, 1),
+     ('CR-V', 'RD', 3, '2012-09-06 00:00:00', 5, 1),
+     ('Rav4', 'XA30', 3, '2005-11-24 00:00:00', 1, 1),
+     ('Tiguan', '5N', 2, '2007-07-10 00:00:00', 3, 1),
+	 ('EcoSport', 'B515', 4, '2003-09-14 00:00:00', 2, 1),
+     ('Explorer', 'U502', 1, '2011-08-27 00:00:00', 2, 1),
+     ('Escape', 'C520', 1, '2012-06-02 00:00:00', 2, 1),
+     ('Bronco', 'U725', 1, '2020-04-10 00:00:00', 2, 2),
+     ('Ram', 'DR', 1, '2009-12-18 00:00:00', 22, 2),
+     ('Wrangler', 'JK', 1, '2006-10-30 00:00:00', 28, 2),
+     ('Cherokee', 'KL', 1, '2014-07-12 00:00:00', 28, 2),
+     ('Soul', 'AM', 1, '2008-05-20 00:00:00', 18, 1),
+     ('Rio', 'JB', 1, '2005-03-06 00:00:00', 18, 1),
+     ('Sorento', 'BL', 1, '2002-11-17 00:00:00', 18, 1),
+     ('Cadenza', 'VG', 1, '2009-09-24 00:00:00', 18, 1),
+     ('C-Class', 'W203', 2, '2000-07-29 00:00:00', 7, 1),
+     ('E-Class', 'W211', 2, '2002-05-13 00:00:00', 7, 1),
+     ('GLA-Class', 'X156', 1, '2013-03-21 00:00:00', 7, 1),
+     ('CL-Class', 'C215', 2, '1999-01-30 00:00:00', 7, 1),
+     ('Kuga', 'C394', 2, '2008-10-12 00:00:00', 2, 1),
+     ('Fiesta', 'MK7', 1, '2008-08-25 00:00:00', 2, 1),
+     ('Focus', 'MK3', 1, '2010-06-09 00:00:00', 2, 1),
+     ('Mustang', 'S550', 1, '2015-04-22 00:00:00', 2, 1),
+     ('S60', 'P24', 4, '2010-02-03 00:00:00', 9, 1),
+     ('XC60', 'Y20', 1, '2008-12-16 00:00:00', 9, 1),
+     ('XC90', 'P28', 1, '2002-10-28 00:00:00', 9, 1),
+     ('Golf', 'MK7', 1, '2012-09-09 00:00:00', 3, 1),
+     ('Passat', 'B8', 2, '2014-07-23 00:00:00', 3, 1),
+     ('Touareg', '7L', 2, '2002-05-07 00:00:00', 3, 1),
+     ('Ibiza', 'Cupra', 2, '2022-03-16 00:00:00', 21, 1),
+     ('Ibiza', 'FR', 2, '2018-01-29 00:00:00', 21, 1),
+      ('Ibiza', 'FR', 2, '2017-02-14 00:00:00', 21, 1),
+     ('Ibiza', 'FR', 1, '2019-06-28 00:00:00', 21, 1),
+     ('Ninja', 'ZX-6R', 1, '2020-08-12 00:00:00', 26, 3),
+     ('CBR', '1000RR', 1, '2019-11-25 00:00:00', 5, 3),
+     ('MT', '09', 1, '2019-07-06 00:00:00', 26, 3),
+     ('SuperSport', 'S', 1, '2017-05-18 00:00:00', 25, 3),
+     ('Monster', '821', 1, '2018-04-01 00:00:00', 23, 3),
+     ('Ram', '1500 DT', 2, '2022-03-19 00:00:00', 22, 2),
+     ('F-150', 'TW14', 2, '2022-01-02 00:00:00', 2, 2),
+     ('Sierra 1500', 'T1SC', 1, '2021-11-14 00:00:00', 24, 2),
+     ('Tundra', 'XK80', 1, '2022-06-27 00:00:00', 1, 2),
      (
           'Silverado 1500',
           'T1SC',
           3,
-          '2021',
+          '2021-09-08 00:00:00',
           11,
-          2
+           2
      );
 
 -- Insertar registro en la tabla motorizacion
@@ -1762,7 +1765,7 @@ VALUES
           116,
           '../images/advertisementImages/CHEVROLETSilverado2500HDExtendedCab-3937_6.jpg',
           '../images/advertisementImages/CHEVROLETSilverado2500HDExtendedCab-3937_7.jpg',
-          '../images/advertisementImages/CHEVROLETSilverado2500HDExtendedCab-3937_8.jpg',
+          '../images/advertisementImages/CHEVROLETSilverado2500HDExtendedCab-3937_.jpg',
           '../images/advertisementImages/CHEVROLETSilverado2500HDExtendedCab-3937_10.jpg',
           '../images/advertisementImages/CHEVROLETSilverado2500HDExtendedCab-3937_12.jpg'
      );
@@ -1781,7 +1784,10 @@ INSERT INTO
           brand_id,
           motorization_id,
           benefits_id,
-          engine_type_id
+          engine_type_id,
+          latitude,
+          longitude,
+          disponibility
      )
 VALUES
      (
@@ -1796,7 +1802,10 @@ VALUES
           1,
           1,
           1,
-          1
+          1,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'Ford F-150 en perfecto estado',
@@ -1810,7 +1819,10 @@ VALUES
           2,
           2,
           2,
-          2
+          2,
+          41.385064,
+          2.1734040,
+          true
      ),
      (
           'Golf GTI en perfecto estado',
@@ -1824,7 +1836,10 @@ VALUES
           3,
           3,
           3,
-          1
+          1,
+          39.469907,
+          -0.376288,
+          true
      ),
      (
           'Renault Clio en perfecto estado',
@@ -1838,7 +1853,10 @@ VALUES
           4,
           4,
           4,
-          1
+          1,
+          37.389092,
+          -5.984459,
+          true
      ),
      (
           'Civic Type R en perfecto estado',
@@ -1852,7 +1870,10 @@ VALUES
           5,
           5,
           5,
-          1
+          1,
+          41.648823,
+          -0.889085,
+          true
      ),
      (
           'BMW X3 en perfecto estado',
@@ -1866,7 +1887,10 @@ VALUES
           6,
           6,
           6,
-          1
+          1,
+          36.721261,
+          -4.421265,
+          true
      ),
      (
           'Mercedes AMG en perfecto estado',
@@ -1880,7 +1904,10 @@ VALUES
           7,
           7,
           7,
-          1
+          1,
+          37.992240,
+          -1.130654,
+          true
      ),
      (
           'Ferrari en perfecto estado',
@@ -1894,7 +1921,10 @@ VALUES
           8,
           8,
           8,
-          1
+          1,
+		  40.416775,
+          -3.703790,
+          true
      ),
      (
           'Volvo XC90 en perfecto estado',
@@ -1908,7 +1938,10 @@ VALUES
           9,
           9,
           9,
-          4
+          4,
+          39.569600,
+          -2.934985,
+          true
      ),
      (
           'Nissan GT-R en perfecto estado',
@@ -1922,7 +1955,10 @@ VALUES
           10,
           10,
           10,
-          1
+          1,
+          40.416775,
+         -3.703790,
+          true
      ),
      (
           'Camaro SS en perfecto estado',
@@ -1936,7 +1972,10 @@ VALUES
           11,
           11,
           11,
-          1
+          1,
+          37.177336,
+          -3.598557,
+          true
      ),
      (
           'Hyundai en perfecto estado',
@@ -1950,7 +1989,10 @@ VALUES
           12,
           12,
           12,
-          1
+          1,
+          39.469907,
+          0.376288,
+          true
      ),
      (
           'Mazda Miata en perfecto estado',
@@ -1964,7 +2006,10 @@ VALUES
           13,
           13,
           13,
-          1
+          1,
+		  43.532251,
+          -5.661995,
+          true
      ),
      (
           'Peugeot 208 en perfecto estado',
@@ -1978,7 +2023,10 @@ VALUES
           14,
           14,
           14,
-          1
+          1,
+          42.240599,
+          -8.720726,
+          true
      ),
      (
           'Audi A3 en perfecto estado',
@@ -1992,7 +2040,10 @@ VALUES
           15,
           15,
           15,
-          1
+          1,
+          37.389092,
+          5.984459,
+          true
      ),
      (
           'Lamborghini en perfecto estado',
@@ -2006,7 +2057,10 @@ VALUES
           16,
           16,
           16,
-          1
+          1,
+          39.569600,
+          2.650160,
+          true
      ),
      (
           'Porsche 911 en perfecto estado',
@@ -2020,7 +2074,10 @@ VALUES
           17,
           17,
           17,
-          1
+          1,
+          43.263013,
+          -2.934985,
+          true
      ),
      (
           'Kia en perfecto estado',
@@ -2034,7 +2091,10 @@ VALUES
           18,
           18,
           18,
-          1
+          1,
+          37.888175,
+          4.779383,
+          true
      ),
      (
           'Subaru WRX en perfecto estado',
@@ -2048,7 +2108,10 @@ VALUES
           19,
           19,
           19,
-          1
+          1,
+          38.345210,
+          -0.481498,
+          true
      ),
      (
           'Audi A3 en perfecto estado',
@@ -2062,7 +2125,10 @@ VALUES
           15,
           20,
           20,
-          1
+          1,
+          37.888175,
+          -4.779383,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2076,8 +2142,11 @@ VALUES
           15,
           21,
           21,
-          1
-     ),
+          1,
+          38.9088,
+          38.9088,
+          true
+     ),	
      (
           'Audi en perfecto estado',
           31200,
@@ -2090,7 +2159,10 @@ VALUES
           15,
           22,
           22,
-          2
+          2,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2104,7 +2176,10 @@ VALUES
           15,
           23,
           23,
-          2
+          2,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2118,7 +2193,10 @@ VALUES
           15,
           24,
           24,
-          2
+          2,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2132,7 +2210,10 @@ VALUES
           15,
           25,
           25,
-          2
+          2,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2146,7 +2227,10 @@ VALUES
           15,
           26,
           26,
-          2
+          2,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2160,7 +2244,10 @@ VALUES
           15,
           27,
           27,
-          1
+          1,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2174,7 +2261,10 @@ VALUES
           15,
           28,
           28,
-          1
+          1,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2188,7 +2278,10 @@ VALUES
           15,
           29,
           29,
-          1
+          1,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2202,7 +2295,10 @@ VALUES
           15,
           30,
           30,
-          2
+          2,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2216,7 +2312,10 @@ VALUES
           15,
           31,
           31,
-          2
+          2,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'Audi en perfecto estado',
@@ -2230,7 +2329,10 @@ VALUES
           15,
           32,
           32,
-          1
+          1,
+          38.9088,
+          38.9088,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2244,7 +2346,10 @@ VALUES
           6,
           33,
           33,
-          3
+          3,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2258,7 +2363,10 @@ VALUES
           6,
           34,
           34,
-          3
+          3,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2272,7 +2380,10 @@ VALUES
           6,
           35,
           35,
-          2
+          2,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2286,7 +2397,10 @@ VALUES
           6,
           36,
           36,
-          2
+          2,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2300,7 +2414,10 @@ VALUES
           6,
           37,
           37,
-          2
+          2,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2314,7 +2431,10 @@ VALUES
           6,
           38,
           38,
-          2
+          2,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2328,7 +2448,10 @@ VALUES
           6,
           39,
           39,
-          2
+          2,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2342,7 +2465,10 @@ VALUES
           6,
           40,
           40,
-          2
+          2,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2356,7 +2482,10 @@ VALUES
           6,
           41,
           41,
-          2
+          2,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2370,7 +2499,10 @@ VALUES
           6,
           42,
           42,
-          1
+          1,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2384,7 +2516,10 @@ VALUES
           6,
           43,
           43,
-          1
+          1,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'BMW en perfecto estado',
@@ -2397,8 +2532,11 @@ VALUES
           44,
           6,
           44,
-          44,
-          1
+          44,         
+          1,
+          39.8628,
+          -4.0273,
+          true
      ),
      (
           'Honda Pilot en perfecto estado',
@@ -2412,7 +2550,10 @@ VALUES
           5,
           45,
           45,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Wolkswagen Jetta en perfecto estado',
@@ -2426,7 +2567,10 @@ VALUES
           3,
           46,
           46,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Golf VII en perfecto estado',
@@ -2440,7 +2584,10 @@ VALUES
           3,
           47,
           47,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Wolkswagen Tiguan en perfecto estado',
@@ -2454,7 +2601,10 @@ VALUES
           3,
           48,
           48,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Wolkswagen Touareg en perfecto estado',
@@ -2468,7 +2618,10 @@ VALUES
           3,
           49,
           49,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Honda CH-R en perfecto estado',
@@ -2482,7 +2635,10 @@ VALUES
           5,
           50,
           50,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Toyota Camry en perfecto estado',
@@ -2496,7 +2652,10 @@ VALUES
           1,
           51,
           51,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Toyota RAV en perfecto estado',
@@ -2510,7 +2669,10 @@ VALUES
           1,
           52,
           52,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Toyota Highlander en perfecto estado',
@@ -2524,7 +2686,10 @@ VALUES
           1,
           53,
           53,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'BMW X5 en perfecto estado',
@@ -2538,7 +2703,10 @@ VALUES
           6,
           54,
           54,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'BMW Serie 3 en perfecto estado',
@@ -2552,7 +2720,10 @@ VALUES
           6,
           55,
           55,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'BMW X3 en perfecto estado',
@@ -2566,7 +2737,10 @@ VALUES
           6,
           56,
           56,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'BMW Serie 5 en perfecto estado',
@@ -2580,7 +2754,10 @@ VALUES
           6,
           57,
           57,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Renault Clio en perfecto estado',
@@ -2594,7 +2771,10 @@ VALUES
           4,
           58,
           58,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Renault Megane en perfecto estado',
@@ -2608,7 +2788,10 @@ VALUES
           4,
           59,
           59,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Renault Captur en perfecto estado',
@@ -2622,7 +2805,10 @@ VALUES
           4,
           60,
           60,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Renault Kadjar en perfecto estado',
@@ -2636,7 +2822,10 @@ VALUES
           4,
           61,
           61,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Ford Fiesta en perfecto estado',
@@ -2650,7 +2839,10 @@ VALUES
           2,
           62,
           62,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Ford Focus en perfecto estado',
@@ -2664,7 +2856,10 @@ VALUES
           2,
           63,
           63,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Ford Kuga en perfecto estado',
@@ -2678,7 +2873,10 @@ VALUES
           2,
           64,
           64,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Ford Explorer en perfecto estado',
@@ -2692,7 +2890,10 @@ VALUES
           2,
           65,
           65,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Seat León en perfecto estado',
@@ -2706,7 +2907,10 @@ VALUES
           21,
           66,
           66,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Seat Ibiza en perfecto estado',
@@ -2720,7 +2924,10 @@ VALUES
           21,
           67,
           67,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Seat Arona en perfecto estado',
@@ -2734,7 +2941,10 @@ VALUES
           21,
           68,
           68,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Seat Ateca en perfecto estado',
@@ -2748,7 +2958,10 @@ VALUES
           21,
           69,
           69,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true          
      ),
      (
           'Volvo S90 en perfecto estado',
@@ -2762,7 +2975,10 @@ VALUES
           9,
           70,
           70,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Honda CR-V en perfecto estado',
@@ -2776,7 +2992,10 @@ VALUES
           5,
           71,
           71,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Honda Civic en perfecto estado',
@@ -2790,7 +3009,10 @@ VALUES
           5,
           72,
           72,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Honda Accord en perfecto estado',
@@ -2804,7 +3026,10 @@ VALUES
           5,
           73,
           73,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Mazda CX-5 en perfecto estado',
@@ -2818,7 +3043,10 @@ VALUES
           13,
           74,
           74,
-          4
+          4,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Honda CR-V en perfecto estado',
@@ -2832,7 +3060,10 @@ VALUES
           5,
           75,
           75,
-          3
+          3,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Toyota Rav-4 en perfecto estado',
@@ -2846,7 +3077,10 @@ VALUES
           1,
           76,
           76,
-          3
+          3,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Volkswagen Tiguan  en perfecto estado',
@@ -2860,7 +3094,10 @@ VALUES
           3,
           77,
           77,
-          2
+          2,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Ford EcoSport en perfecto estado',
@@ -2874,7 +3111,10 @@ VALUES
           2,
           78,
           78,
-          4
+          4,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Ford Explorer en perfecto estado',
@@ -2888,7 +3128,10 @@ VALUES
           2,
           79,
           79,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Ford Escape en perfecto estado',
@@ -2902,7 +3145,10 @@ VALUES
           2,
           80,
           80,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Ford Bronco en perfecto estado',
@@ -2916,7 +3162,10 @@ VALUES
           2,
           81,
           81,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Dodge RAM en perfecto estado',
@@ -2930,7 +3179,10 @@ VALUES
           22,
           82,
           82,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Jeep Wrangler en perfecto estado',
@@ -2944,7 +3196,10 @@ VALUES
           26,
           83,
           83,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Jeep Cherokee en perfecto estado',
@@ -2958,7 +3213,10 @@ VALUES
           26,
           84,
           84,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Kia Soul en perfecto estado',
@@ -2972,7 +3230,10 @@ VALUES
           18,
           85,
           85,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Kia Rio en perfecto estado',
@@ -2986,7 +3247,10 @@ VALUES
           18,
           86,
           86,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Kia Sorento en perfecto estado',
@@ -3000,7 +3264,10 @@ VALUES
           18,
           87,
           87,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Kia Cadenza en perfecto estado',
@@ -3014,7 +3281,10 @@ VALUES
           18,
           88,
           88,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Mercedes Clase C en perfecto estado',
@@ -3028,7 +3298,10 @@ VALUES
           7,
           89,
           89,
-          2
+          2,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Mercedes Clase E en perfecto estado',
@@ -3042,7 +3315,10 @@ VALUES
           7,
           90,
           90,
-          2
+          2,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Mercedes GLA en perfecto estado',
@@ -3056,7 +3332,10 @@ VALUES
           7,
           91,
           91,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Mercedes Coupé perfecto estado',
@@ -3070,7 +3349,10 @@ VALUES
           7,
           92,
           92,
-          2
+          2,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Ford Kuga en perfecto estado',
@@ -3084,7 +3366,10 @@ VALUES
           2,
           93,
           93,
-          2
+          2,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Ford Fiesta en perfecto estado',
@@ -3098,7 +3383,10 @@ VALUES
           2,
           94,
           94,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Ford Focus en perfecto estado',
@@ -3112,7 +3400,10 @@ VALUES
           2,
           95,
           95,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Ford Mustang en perfecto estado',
@@ -3126,7 +3417,10 @@ VALUES
           2,
           96,
           96,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Volvo S60 en perfecto estado',
@@ -3140,7 +3434,10 @@ VALUES
           9,
           97,
           97,
-          4
+          4,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Volvo XC60 en perfecto estado',
@@ -3154,7 +3451,10 @@ VALUES
           9,
           98,
           98,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Volvo XC90 en perfecto estado',
@@ -3168,7 +3468,10 @@ VALUES
           9,
           99,
           99,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Golf GTI en perfecto estado',
@@ -3182,7 +3485,10 @@ VALUES
           3,
           100,
           100,
-          1
+          1,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Volkswagen Passat en perfecto estado',
@@ -3196,7 +3502,10 @@ VALUES
           3,
           101,
           101,
-          2
+          2,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Volkswagen Touareg en perfecto estado',
@@ -3210,7 +3519,10 @@ VALUES
           3,
           102,
           102,
-          2
+          2,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Seat Ibiza en perfecto estado',
@@ -3224,7 +3536,10 @@ VALUES
           21,
           103,
           103,
-          2
+          2,
+          43.3183,
+          -1.9812,
+          true
      ),
      (
           'Seat Ibiza en perfecto estado',
@@ -3238,7 +3553,10 @@ VALUES
           21,
           104,
           104,
-          2
+          2,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'Seat Ibiza en perfecto estado',
@@ -3252,7 +3570,10 @@ VALUES
           21,
           105,
           105,
-          2
+          2,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'Seat Ibiza en perfecto estado',
@@ -3266,7 +3587,10 @@ VALUES
           21,
           106,
           106,
-          1
+          1,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'Kawasaki Ninja en perfecto estado',
@@ -3280,7 +3604,10 @@ VALUES
           26,
           107,
           107,
-          1
+          1,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'Honda CBR en perfecto estado',
@@ -3294,7 +3621,10 @@ VALUES
           5,
           108,
           108,
-          1
+          1,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'KTM MT en perfecto estado',
@@ -3308,7 +3638,10 @@ VALUES
           25,
           109,
           109,
-          1
+          1,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'Yamaha en perfecto estado',
@@ -3322,7 +3655,10 @@ VALUES
           27,
           110,
           110,
-          1
+          1,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'Ducati en perfecto estado',
@@ -3336,7 +3672,10 @@ VALUES
           23,
           111,
           111,
-          1
+          1,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'Dodge RAM en perfecto estado',
@@ -3350,7 +3689,10 @@ VALUES
           22,
           112,
           112,
-          2
+          2,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'Ford F-150 en perfecto estado',
@@ -3364,7 +3706,10 @@ VALUES
           2,
           113,
           113,
-          2
+          2,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'GMC Sierra en perfecto estado',
@@ -3378,7 +3723,10 @@ VALUES
           24,
           114,
           114,
-          1
+          1,
+          40.416775,
+          -3.703790,
+          true
      ),
      (
           'Toyota Tundra en perfecto estado',
@@ -3392,7 +3740,10 @@ VALUES
           2,
           115,
           115,
-          1
+          1,
+          48.8566,
+          2.3522,
+          true
      ),
      (
           'Chevrolet Silverado en perfecto estado',
@@ -3406,7 +3757,10 @@ VALUES
           11,
           116,
           116,
-          3
+          3,
+          40.416775,
+          -3.703790,
+          true
      );
 
 -- Nuevos inserts  en la tabla modelo
@@ -3420,8 +3774,8 @@ INSERT INTO
           vehicle_type_id
      )
 VALUES
-     ('Civic', 'Type R', 1, 2004, 5, 1),
-     ('AE86', 'hachi-Roku', 1, 1983, 1, 1);
+     ('Civic', 'Type R', 1, "2004-03-05 00:00:00", 5, 1),
+     ('AE86', 'hachi-Roku', 1, "1983-02-14 00:00:00", 1, 1);
 
 -- Nuevos inserts  en la tabla motorización
 INSERT INTO
@@ -3495,7 +3849,10 @@ INSERT INTO
           brand_id,
           motorization_id,
           benefits_id,
-          engine_type_id
+          engine_type_id,
+          latitude,
+          longitude,
+          disponibility
      )
 VALUES
      (
@@ -3510,7 +3867,10 @@ VALUES
           5,
           117,
           117,
-          1
+          1,
+          39.569600,
+          2.650160,
+          true          
      ),
      (
           'Hachi-Roku, oprtunidad única',
@@ -3524,9 +3884,17 @@ VALUES
           1,
           118,
           118,
-          1
+          1,
+          39.569600,
+          2.650160,
+          true 
      );
 
--- Añade a la tabla anuncio la columna 'kilometraje'
--- ALTER TABLE anuncio
--- ADD kilometraje INT(10);
+use cars_db;
+
+-- Añade nuevas columnas a la tabla 'advertisement'
+ALTER TABLE advertisement
+-- ADD longitude varchar(100) NOT NULL,
+-- ADD latitude varchar(100) NOT NULL,
+-- ADD disponibility boolean NOT NULL;
+
