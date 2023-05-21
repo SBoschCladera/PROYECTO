@@ -1,21 +1,3 @@
-// Número de anuncios que se muestran en pantalla
-numAdvertisements = 118
-
-// Obtiene el número total de anuncios que se mostrarán en pantalla
-function totalAdvertisements() {
-    // Crea una solicitud HTTP POST al servidor para obtener los datos de los anuncios
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        // Si la solicitud se completa con éxito, parsea los datos de respuesta y los pasa a la función makeList
-        if (this.readyState == 4 && this.status == 200) {
-            var data = JSON.parse(this.responseText);
-            loco['total'] = data.total;
-        }
-    };
-    xhttp.open("POST", "../../back/Controllers/totalAdvertisementsController.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send();
-}
 
 // Obtiene los datos de los anuncios del backEnd.
 function toListAdvertisements() {
@@ -25,8 +7,7 @@ function toListAdvertisements() {
         // Si la solicitud se completa con éxito, parsea los datos de respuesta y los pasa a la función makeList
         if (this.readyState == 4 && this.status == 200) {
             var data = JSON.parse(this.responseText);
-            numAdvertisements;
-            makeList(data, numAdvertisements);
+            makeList(data, data.advertisements.length);
         }
     };
     xhttp.open("POST", "../../back/Controllers/listController.php", true);
@@ -43,7 +24,7 @@ function makeList(data, listNum) {
         alignedDiv(i);
 
         // Crea un anuncio con bootstrap       
-        makeCard(i, i, data.advertisements)
+        makeCard(i, i, data.advertisements);
     }
 }
 
@@ -81,7 +62,7 @@ function sendData() {
             // Recorrer todos los elementos y los elimina
             divDeleter();
 
-            for (let i = 0; i < numAdvertisements; i++) {
+            for (let i = 0; i < data.advertisements.length; i++) {
 
                 //  Variables con condiciones
                 let selectVehicleTypeValueEqualsVehicleTypeId = (parseInt(data.advertisements[i].model_id.vehicleType_id.id) == selectVehicleTypeValue);
@@ -151,6 +132,9 @@ function sendData() {
                     }
                 }
             }
+            // Añade o elimina la clase 'dark-mode'
+            darkModeCards();
+
             // Condición para la muestra del mensaje de búsqueda sin resultados
             if (counter < 1) {
 
@@ -165,40 +149,4 @@ function sendData() {
 }
 
 
-/**  query para el buscador
- select advertisement.description AS description, advertisement.price AS price, model.name AS modelName, advertisement.color AS color,
-advertisement.km AS km, brand.name as brandName, motorization.power AS power, vehicle_type.name AS vehicleTypeName,
-benefits.max_velocity as maxVelocity, benefits.acceleration_0_100 AS acceleration, benefits.consumption as consumption
-from advertisement 
-INNER JOIN model ON model.id = advertisement.model_id
-INNER JOIN brand ON brand.id = advertisement.brand_id
-INNER JOIN motorization ON motorization.id = advertisement.motorization_id
-INNER JOIN vehicle_type ON vehicle_type.id = model.vehicle_type_id
-INNER JOIN benefits ON benefits.id = advertisement.benefits_id
-where description like '%Ci%' || price like '%10%'|| model.name like '%Po%' || color like '%ro%' || km like '%21%' || brand.name like '%Do%'
-      || motorization.displacement like '%1.%' || vehicle_type.name like '%Mo%'|| benefits.max_velocity like '%20%' || benefits.acceleration_0_100 like '%4%' 
-      || benefits.consumption like '%7%';
- */
 
-
-// function modoOscuro() {
-
-//     document.body.classList.add("darkMode");
-//     let cards = document.getElementsByClassName('card');
-//     for (let i = 0; i < cards.length; i++) {
-//         document.getElementsByClassName('card')[i].classList.add("darkMode");
-//     }
-//     let selects = document.getElementsByClassName('form-control');
-//     for (let i = 0; i < selects.length; i++) {
-//         document.getElementsByClassName('form-control')[i].classList.add("darkMode");
-//     }
-//     let options = document.getElementsByClassName('optionsClassName');
-//     for (let i = 0; i < options.length; i++) {
-//         document.getElementsByClassName('optionsClassName')[i].classList.add("darkMode");
-//     }
-//     let cardsBody = document.getElementsByClassName('card-body');
-//     for (let i = 0; i < cardsBody.length; i++) {
-//         document.getElementsByClassName('card-body')[i].classList.add("darkMode");
-//     }
-
-// }

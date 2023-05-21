@@ -5,7 +5,7 @@
 function makeCard(cont, cont2, data) {
     let fatherDiv = createDiv("col-md-3 mt-4 portada ml-3 mb-3 anuncio", `advertisementDiv${cont + 1}`);
 
-    let sonDiv = createDiv("card", `sonDivId${cont + 1}`);
+    let sonDiv = createDiv("card advertisementCard", `sonDivId${cont + 1}`);
     let mainImage = createImage(data[cont].images.foto1, 'card-img-top', `Imagen del modelo ${cont + 1}`);
     sonDiv.appendChild(mainImage);
 
@@ -17,13 +17,15 @@ function makeCard(cont, cont2, data) {
     let logo = createImage(data[cont2].brand_id.logo, 'float-right photoLogo', `logo modelo${cont + 1}`);
     grandsonDiv.appendChild(logo);
 
-    let price = createH5('card-text price', `€  ${data[cont].price}`);
+    let formattedPrice = (data[cont].price).toLocaleString();
+    let price = createH5('card-text price', `€  ${formattedPrice}`);
     grandsonDiv.appendChild(price);
 
     let engineType = createParagraf('card-text', `${data[cont].motorization_id.power}CV, ${data[cont].model_id.engineType_id.name}.`);
     grandsonDiv.appendChild(engineType);
 
-    let km = createParagraf('card-text', `${data[cont].km} Km.`);
+    let formattedKm = (data[cont].km).toLocaleString();
+    let km = createParagraf('card-text', `${formattedKm} Km.`);
     grandsonDiv.appendChild(km);
 
     let link = createLinks('btn btn-primary', `idCar${data[cont].model_id.id}`, ` ../Controllers/singleAdvertisementController.php?id=${data[cont].id}`, 'Ver detalles');
@@ -156,3 +158,4 @@ function notFoundMatches(id) {
 
     return div1;
 }
+
