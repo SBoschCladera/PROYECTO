@@ -14,10 +14,12 @@ if (isset($_GET["id"])) {
     $return = array(
         "advertisements" => $model->getAdvertisements(),
         "selectedAdvertisementId" => $_GET["id"],
-        "selectedAdvertisement" => $selectedAdvertisement,
+        "selectedAdvertisement" => $selectedAdvertisement
     );
 }
 
 echo json_encode($return);
 
     ?>
+
+    
