@@ -14,16 +14,24 @@ class LoginModel
 
     public function getUser($mail, $password): User
     {
-        $sql = "SELECT id, mail, password FROM user_app WHERE mail = '" . $mail."';";
+        $mail = filter_var($mail, FILTER_SANITIZE_EMAIL);
+        $sql = "SELECT id, mail, password FROM user_app WHERE mail = ?";
+
         $this->db->default();
-        $query = $this->db->query($sql);
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $mail);
+        $stmt->execute();
+        $query = $stmt->get_result();
         $this->db->close();
-      
+
         if ($result = $query->fetch_assoc()) {
-            if (crypt($password, $result["password"]) == $result["password"]) {
+            $hashedPassword = $result["password"];
+            if (password_verify($password, $hashedPassword)) {
+             
                 return new User($result["id"], $result["mail"], $result["password"]);
             }
         }
+
         return new User(0, "-", "-");
     }
 }
