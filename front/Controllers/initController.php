@@ -8,7 +8,7 @@ if (isset($_GET["id"])) {
     $file = file_get_contents("http://localhost/php/PROYECTO/back/Controllers/listController.php");
 }
 
-// Decodificar los datos obtenidos del controlador de anuncios
+// Decodifica los datos obtenidos del controlador de anuncios
 $obj = json_decode($file);
 $advertisements = $obj->advertisements;
 
@@ -39,8 +39,8 @@ if (isset($_GET["id"])) {
 
 // Verifica el "id" para los tipos de vehículos ("vehicleTypes")
 if (isset($_GET["id"])) {
-    $selectedvehicleTypeId = $_GET["id"];
-    $file = file_get_contents("http://localhost/php/PROYECTO/back/Controllers/vehicleTypeController.php?id=" . $selectedvehicleTypeId);
+    $selectedVehicleTypeId = $_GET["id"];
+    $file = file_get_contents("http://localhost/php/PROYECTO/back/Controllers/vehicleTypeController.php?id=" . $selectedVehicleTypeId);
 } else {
     $file = file_get_contents("http://localhost/php/PROYECTO/back/Controllers/vehicleTypeController.php");
 }
@@ -49,10 +49,10 @@ $obj = json_decode($file);
 $vehicleTypes = $obj->vehicleTypes;
 
 // Obtiene el tipo de vehículo seleccionado según su id
-$selectedvehicleTypeId = "";
+$selectedVehicleTypeId = "";
 if (isset($_GET["id"])) {
-    $selectedvehicleTypeId = $_GET["id"];
-    $selectedvehicleType = $obj->selectedvehicleType;
+    $selectedVehicleTypeId = $_GET["id"];
+    $selectedVehicleType = $obj->selectedVehicleType;
 }
 
 // Total anuncios
@@ -61,6 +61,7 @@ $file = file_get_contents("http://localhost/php/PROYECTO/back/Controllers/totalA
 $obj = json_decode($file);
 $total = $obj->total;
 
+session_start();
 
 // Incluye la vista
 require_once "../Views/index.phtml";
