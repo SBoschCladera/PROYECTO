@@ -4,6 +4,12 @@
     border-radius: 60px;
 }
 
+.photoLogoDetail {
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
+}
+
 .price {
     font-size: 25px;
 }
@@ -24,7 +30,7 @@ notFoundH5b {
 }
 
 /* Estilos para el campo de búsqueda */
-.navbar-nav form .input-group {
+/* .navbar-nav form .input-group {
     width: 300px;
 }
 
@@ -41,31 +47,12 @@ notFoundH5b {
 .navbar-nav form .btn :hover {
     border-radius: 0;
     border-color: #ccc;
-}
+} */
 
 .iframe-container {
     height: 100%;
 }
 
-/* MODO OSCURO */
-
-.dark-mode button.btn-primary {
-    background-color: #343a40;
-    color: #fff;
-}
-
-.dark-mode button.btn-primary:hover {
-    background-color: #23272b;
-}
-
-.dark-mode button.btn-primary:focus {
-    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
-}
-
-.darkMode {
-    background-color: #222;
-    color: #eee;
-}
 
 section {
     display: flex;
@@ -125,5 +112,144 @@ section img:hover {
     float: right;
     top: 10px;
     right: 10px;
-    z-index: 1050; 
-  }
+    z-index: 1050;
+}
+
+/* .carouselImg {
+    width: 90%;
+    height: auto;
+    object-fit: cover;
+  } */
+
+#result {
+    width: 99%;
+}
+
+/************************ Estilos para el modo oscuro *********************/
+
+/********** Body **********/
+body.dark-mode {
+    background-color: #444;
+    color: #fff;
+}
+
+/********** Carrusel ***********/
+.btn-dark.dark-mode {
+    background-color: #555;
+    color: #fff;
+}
+
+.carouselClass.dark-mode {
+    background-color: #333;
+}
+
+.carouselClass.dark-mode .carousel-control-prev-icon,
+.carouselClass.dark-mode .carousel-control-next-icon {
+    background-color: #fff;
+}
+
+.carouselClass.dark-mode .carousel-control-prev-icon:after,
+.carouselClass.dark-mode .carousel-control-next-icon:after {
+    color: #000;
+}
+
+.carouselClass.dark-mode .carousel-control-prev,
+.carouselClass.dark-mode .carousel-control-next {
+    filter: invert(1);
+}
+
+.carouselClass.dark-mode .carouselImg {
+    filter: brightness(0.8);
+}
+
+
+/*********** Filtro de búsqueda ***********/
+.card.dark-mode {
+    background-color: #444;
+    color: #fff;
+}
+
+.card-header.dark-mode {
+    background-color: #444;
+}
+
+.card-body.dark-mode {
+    background-color: #444;
+}
+
+.card.dark-mode .form-group label {
+    color: #fff;
+}
+
+.card.dark-mode .form-control {
+    background-color: #444;
+    color: #fff;
+}
+
+.card.dark-mode .btn-primary {
+    background-color: #555;
+    border-color: #555;
+    color: #fff;
+}
+
+.card.dark-mode .btn-primary:hover {
+    background-color: #777;
+    border-color: #777;
+    color: #fff;
+}
+
+/*********** Barra de Navegación ***********/
+
+.navbar.dark-mode .navbar-brand,
+.navbar.dark-mode .navbar-nav .nav-link,
+.navbar.dark-mode .btn-dark,
+.navbar.dark-mode .btn-primary,
+.navbar.dark-mode .form-control,
+.navbar.dark-mode .btn-outline-secondary {
+    background-color: #444;
+    color: #ffffff;
+}
+
+.navbar.dark-mode {
+    background-color: #444;
+    border-bottom: 2px solid #3C3C3C;
+}
+
+
+/* .navbar-nav .nav-item.dark-mode>a.nav-link {
+    background-color: #444 !important;
+    border-color: #444 !important;
+    color: #fff !important;
+} */
+
+
+/*********** Anuncios ***********/
+
+.card .advertisementCard.dark-mode {
+    background-color: #444;
+    border-color: #444;
+    color: #ffffff;
+}
+
+
+/* Transición de color entre el modo oscuro y modo normal. */
+body,
+.card,
+.card-header,
+.card-body,
+.card .form-group label,
+.card .form-control,
+.navbar,
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .btn-dark {
+    transition: background-color 0.8s ease;
+}
+
+
+/********** Vista detallada **********/
+
+#detailsAdvertisement.dark-mode {
+    background-color: #444;
+}
+
