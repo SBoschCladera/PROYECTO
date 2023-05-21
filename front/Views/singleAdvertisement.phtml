@@ -18,120 +18,139 @@
   <!-- CSS -->
   <link rel="stylesheet" href="../CSS/signUplogInStyles.css">
   <link rel="stylesheet" href="../CSS/styles.css">
+  <!-- Scripts JS -->
+  <script src="../JS/list.js"></script>
+  <script src="../JS/optionsLogic.js"></script>
+  <script src="../JS/createElements.js"></script>
+  <script src="../JS/darkMode.js"></script>
 </head>
 
-<body>
-  <!-- <?php var_dump($advertisement_obj->advertisement) ?> -->
+<!-- Recupera el valor de la clase guardada en la cookie -->
+<?php
+if (isset($_COOKIE['bodyClass'])) {
+  $bodyClass = $_COOKIE['bodyClass'];
+  ?>
+  <body class="dark-mode"> <?php
+} else {
+  ?>
+    <body>
+      <?php
+} ?>
 
-  <button type="button" id="closeButton" class="close position-fixed float-right" data-dismiss="modal" aria-label="Close" onclick="window.close()">
-    <span aria-hidden="true">&times;</span>
-  </button>
+    <!-- <?php var_dump($advertisement_obj->advertisement) ?> -->
 
-  <div class="container mt-5">
-    <h1 class="mb-5">
-      <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?>
-    </h1>
-    <div class="row mb-5">
-      <div class="col-md-7">
-        <div class="card">
-          <img src="<?php echo $advertisement_obj->advertisement->images->foto1 ?>" class="card-img-top"
-            alt="Imagen del coche">
+    <button type="button" id="closeButton" class="close position-fixed float-right" data-dismiss="modal"
+      aria-label="Close" onclick="window.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <div class="container mt-5">
+      <h1 class="mb-5">
+        <img class="photoLogoDetail me-2" src="<?php echo $advertisement_obj->advertisement->brand_id->logo ?>"
+          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+        <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?>
+      </h1>
+      <div class="row mb-5">
+        <div class="col-md-7">
+          <div class="card">
+            <img src="<?php echo $advertisement_obj->advertisement->images->foto1 ?>" class="card-img-top"
+              alt="Imagen del coche">
+          </div>
         </div>
-      </div>
-      <div class="col-md-5">
-        <div class="card ms-4">
-          <div class="card-body p-0">
-            <div class="iframe-container">
-              <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                src="https://maps.google.com/maps?q=39.5696,2.6502 &hl=es&z=10&output=embed"></iframe>
+        <div class="col-md-5">
+          <div class="card ms-4">
+            <div class="card-body p-0">
+              <div class="iframe-container">
+                <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                  src="https://maps.google.com/maps?q=<?php echo $advertisement_obj->advertisement->latitude ?>,<?php echo $advertisement_obj->advertisement->longitude ?>&hl=es&z=10&output=embed"></iframe>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 mt-2">
-        <div class="card">
-          <div class="card-body">
-            <h2 class="mb-4"> Modelo
-              <!-- <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?> -->
-            </h2>
-            <p><strong>Marca:</strong>
-              <?php echo $advertisement_obj->advertisement->brand_id->name ?>
-            </p>
-            <p><strong>Modelo:</strong>
-              <?php echo $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?>
-            </p>
-            <p><strong>Año:</strong>
-              <!--<?php echo $advertisement_obj->advertisement->releaseYear->date ?>-->
-            </p>
-            <p><strong>Descripción:</strong>
-              <?php echo $advertisement_obj->advertisement->description . "." ?>
-            </p>
-            <p><strong>Precio:</strong>
-              <?php echo number_format($advertisement_obj->advertisement->price, 0, ",", ".") . "€" ?>
-            </p>
-            <p><strong>Km:</strong>
-              <?php echo number_format($advertisement_obj->advertisement->km, 0, ",", ".") . " km" ?>
-            </p>
-            <p><strong>Color:</strong>
-              <?php echo $advertisement_obj->advertisement->color ?>
-            </p>
+      <div class="row">
+        <div class="col-md-4 mt-2">
+          <div class="card">
+            <div class="card-body">
+              <h2 class="mb-4"> Modelo
+                <!-- <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?> -->
+              </h2>
+              <p id="detailsAdvertisement"><strong>Marca:</strong>
+                <?php echo $advertisement_obj->advertisement->brand_id->name ?>
+              </p>
+              <p><strong>Modelo:</strong>
+                <?php echo $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?>
+              </p>
+              <p><strong>Año:</strong>
+                <?php echo $advertisement_obj->advertisement->model_id->releaseYear->date ?>
+              </p>
+              <p><strong>Descripción:</strong>
+                <?php echo $advertisement_obj->advertisement->description . "." ?>
+              </p>
+              <p><strong>Precio:</strong>
+                <?php echo number_format($advertisement_obj->advertisement->price, 0, ",", ".") . "€" ?>
+              </p>
+              <p><strong>Km:</strong>
+                <?php echo number_format($advertisement_obj->advertisement->km, 0, ",", ".") . " km" ?>
+              </p>
+              <p><strong>Color:</strong>
+                <?php echo $advertisement_obj->advertisement->color ?>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-2">
+          <div class="card">
+            <div class="card-body">
+              <h2 class="mb-4">Características</h2>
+              <p><strong>Motor:</strong>
+                <?php echo $advertisement_obj->advertisement->model_id->engineType_id->name . "." ?>
+              </p>
+              <p><strong>Consumo:</strong>
+                <?php echo $advertisement_obj->advertisement->benefits_id->consumption . " l/100 km" ?>
+              </p>
+              <p><strong>Velocidad máxima:</strong>
+                <?php echo $advertisement_obj->advertisement->benefits_id->max_velocity . " km/h" ?>
+              </p>
+              <p><strong>Aceleración:</strong>
+                <?php echo $advertisement_obj->advertisement->benefits_id->acceleration_0_100 . " seg." ?>
+              </p>
+              <p><strong>Potencia:</strong>
+                <?php echo $advertisement_obj->advertisement->motorization_id->power . " CV." ?>
+              </p>
+              <p><strong>Cilindrada:</strong>
+                <?php echo $advertisement_obj->advertisement->motorization_id->displacement . " l." ?>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-5">
+          <div class="card">
+            <div class="card-body">
+              <p>Para contactar con el vendedor, envía un correo electrónico a:</p>
+              <a href="mailto:vendedor@example.com"
+                class="btn btn-primary bg-light text-secondary">vendedor@example.com</a>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mt-2">
-        <div class="card">
-          <div class="card-body">
-            <h2 class="mb-4">Características</h2>
-            <p><strong>Motor:</strong>
-              <?php echo $advertisement_obj->advertisement->model_id->engineType_id->name . "." ?>
-            </p>
-            <p><strong>Consumo:</strong>
-              <?php echo $advertisement_obj->advertisement->benefits_id->consumption . " l/100 km" ?>
-            </p>
-            <p><strong>Velocidad máxima:</strong>
-              <?php echo $advertisement_obj->advertisement->benefits_id->max_velocity . " km/h" ?>
-            </p>
-            <p><strong>Aceleración:</strong>
-              <?php echo $advertisement_obj->advertisement->benefits_id->acceleration_0_100 . " seg." ?>
-            </p>
-            <p><strong>Potencia:</strong>
-              <?php echo $advertisement_obj->advertisement->motorization_id->power . " CV." ?>
-            </p>
-            <p><strong>Cilindrada:</strong>
-              <?php echo $advertisement_obj->advertisement->motorization_id->displacement . " l." ?>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mt-5">
-        <div class="card">
-          <div class="card-body">
-            <p>Para contactar con el vendedor, envía un correo electrónico a:</p>
-            <a href="mailto:vendedor@example.com"
-              class="btn btn-primary bg-light text-secondary">vendedor@example.com</a>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-md-12">
-      <h2 id="galleryH2" class="mt-5 mb-5">Galería de imágenes</h2>
-      <section class=" col-md-12">
-        <img src="<?php echo $advertisement_obj->advertisement->images->foto1 ?>"
-          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
-        <img src="<?php echo $advertisement_obj->advertisement->images->foto2 ?>"
-          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
-        <img src="<?php echo $advertisement_obj->advertisement->images->foto3 ?>"
-          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
-        <img src="<?php echo $advertisement_obj->advertisement->images->foto4 ?>"
-          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
-        <img src="<?php echo $advertisement_obj->advertisement->images->foto5 ?>"
-          alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
-      </section>
+      <div class="col-md-12 mb-5">
+        <h2 id="galleryH2" class="mt-5 mb-5">Galería de imágenes</h2>
+        <section class=" col-md-12">
+          <img src="<?php echo $advertisement_obj->advertisement->images->foto1 ?>"
+            alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+          <img src="<?php echo $advertisement_obj->advertisement->images->foto2 ?>"
+            alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+          <img src="<?php echo $advertisement_obj->advertisement->images->foto3 ?>"
+            alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+          <img src="<?php echo $advertisement_obj->advertisement->images->foto4 ?>"
+            alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+          <img src="<?php echo $advertisement_obj->advertisement->images->foto5 ?>"
+            alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+        </section>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 
 </html>

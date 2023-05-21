@@ -2,32 +2,48 @@
 <html lang="es">
 
 <head>
-  <title>Bootstrap Example</title>
+  <title>Error login</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Enlace al archivo CSS personalizado -->
+  <link rel="stylesheet" href="../CSS/styles.css">
+  <link rel="stylesheet" href="../CSS/signUplogInStyles.css">
+  <!-- Scripts JS -->
+  <script src="../JS/darkMode.js"></script>
 </head>
 
-<body>
-  <div class="alert alert-alert alert-dismissible fade in">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Ooppsss!</strong> Algo ha ido mal......
-  </div>
+<!-- Recupera el valor de la clase guardada en la cookie -->
+<?php
+if (isset($_COOKIE['bodyClass'])) {
+  $bodyClass = $_COOKIE['bodyClass'];
+  ?>
 
-  <script>
-    $(document).ready(function () {
-      // Muestra un alert de Bootstrap con un mensaje.
-      $('<div class="alert alert-danger alert-dismissible fade in" role="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>Bienvenido/a a nuestro sitio web</strong></div>').appendTo('#messages');
+  <body <?php echo 'class="dark-mode"'; ?>> <?php
+} else {
+  ?>
 
-      // Oculta el alert después de tres segundos
-      setTimeout(function () {
-        $('.alert').alert('close');
-        window.location.href = "../Controllers/loginController.php";
-      }, 2500);
-    });
-  </script>
-</body>
+    <body>
+      <?php
+} ?>
+
+    <div class="alert alert-danger alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Ooppsss!</strong> Algo ha ido mal......
+    </div>
+
+    <script>
+      $(document).ready(function () {
+
+        // Oculta el alert después de tres segundos
+        setTimeout(function () {
+          $('.alert').alert('close');
+          window.location.href = "../Controllers/loginController.php";
+        }, 2500);
+      });
+    </script>
+  </body>
 
 </html>
