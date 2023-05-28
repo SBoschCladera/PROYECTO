@@ -31,18 +31,17 @@
     <script src="../JS/createElements.js"></script>
     <script src="../JS/search.js"></script>
     <script src="../JS/darkMode.js"></script>
+    <script src="../JS/sortBy.js"></script>
 </head>
 
 <!-- Recupera el valor de la clase guardada en la cookie -->
 <?php
 if (isset($_COOKIE['bodyClass'])) {
-    $bodyClass = $_COOKIE['bodyClass'];
-    ?>
+    $bodyClass = $_COOKIE['bodyClass']; ?>
 
     <body class="dark-mode">
         <?php
-} else {
-    ?>
+} else { ?>
 
         <body>
             <?php
@@ -60,12 +59,12 @@ if (isset($_COOKIE['bodyClass'])) {
         if (isset($_COOKIE['bodyClass'])) {
             $bodyClass = $_COOKIE['bodyClass']; ?>
             <nav class="navbar navbar-expand-lg dark-mode sticky-top" id="barNav">
-            <?php
+                <?php
         } else { ?>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="barNav">
-                <?php
+                    <?php
         } ?>
-                <a class="navbar-brand" href="#">tunuevocoche.com</a>
+                <a class="navbar-brand" href="#">theseeker.com</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -76,18 +75,29 @@ if (isset($_COOKIE['bodyClass'])) {
                             <a class="nav-link" href="#">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Catálogo</a>
-                        </li>
-                        <li class="nav-item mr-2">
                             <a class="nav-link" href="#">Contacto</a>
                         </li>
+                        <li class="nav-item mr-2">
+                            <select id="searchSelect" class="form-control btn-outline-0">
+                                <option value="0" class="" selected>Buscar por</option>
+                                <option value="1" class="">Marca</option>
+                                <option value="2" class="">Modelo</option>
+                                <option value="3" class="">Tipo de motor</option>
+                                <option value="4" class="">Color</option>
+                                <option value="5" class="">Potencia</option>
+                                <option value="6" class="">Velocidad máxima</option>
+                                <option value="7" class="">Aceleración</option>
+                                <option value="8" class="">Consumo</option>
+                                <option value="9" class="">KM</option>
+                                <option value="10" class="">País</option>
+                                <option value="11" class="">Año de lanzamiento</option>
+                                <option value="12" class="">Precio</option>
+                            </select>
+                        </li>
                     </ul>
-                    <a href="#" id="oscuro" class="btn btn-dark mr-3" onclick="setDarkMode()">
-                        <i class="fas fa-moon"></i> Modo oscuro
-                    </a>
                     <form id="searchForm" class="form-inline my-2 my-lg-0 mr-auto">
                         <div class="input-group">
-                            <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Buscar"
+                            <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Pon algo aquí..."
                                 aria-label="Buscar">
                             <div class="input-group-append">
                                 <button id="searchButton" class="btn btn-outline-secondary" type="submit"><i
@@ -95,10 +105,13 @@ if (isset($_COOKIE['bodyClass'])) {
                             </div>
                         </div>
                     </form>
+                    <a href="#" id="oscuro" class="btn btn-dark mr-3" onclick="setDarkMode()">
+                        <i class="fas fa-moon"></i> Modo oscuro
+                    </a>
                     <ul class="navbar-nav" id="registerButtons">
                         <li class="nav-item">
                             <?php if (!isset($_SESSION["mail"])) { ?>
-                                <a class="nav-link btn btn-primary bg-light" href="../Controllers/signUpController.php"
+                                <a class="nav-link btn btn-primary ml-2 bg-light" href="../Controllers/signUpController.php"
                                     id="signUpLink">Registrarse</a>
                             <?php } else { ?>
                                 <div style="position: absolute; top: 60px; right:10px">
@@ -119,6 +132,10 @@ if (isset($_COOKIE['bodyClass'])) {
                                     sesión</a>
                             <?php } ?>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary ml-2 bg-light"
+                                href="../Controllers/crearAnuncioController.php" id="sellYourCar">Vende tu coche</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -126,7 +143,41 @@ if (isset($_COOKIE['bodyClass'])) {
 
             <!-- Contenido principal -->
 
-            <h1 class="text-center mb-5 mt-5"> Bienvenido a tunuevocoche.com</h1>
+            <h1 class="text-center mb-5 mt-5" id="title"> Bienvenido a theseeker.com</h1>
+
+            <div class="container d-flex justify-content-between mb-3">
+                <div class="nav-item ml-auto">
+                    <button id="sortByIndicator" class="btn btn-outline-0 text-dark" disabled>Ordenar por... </button>
+                </div>
+                <div class="nav-item">
+                    <button id="sortByBrandNameId" class="btn btn-outline-0 sort me-5 ms-2 sortByButton"
+                        onclick="sortByBrandName()">Marca</button>
+                </div>
+                <div class="nav-item">
+                    <button id="sortByPriceAscId" class="btn btn-outline-0 me-5 sortByButton"
+                        onclick="sortByPriceAsc()">Precio
+                        <i class="fas fa-arrow-up"></i></button>
+                </div>
+                <div class="nav-item">
+                    <button id="sortByPriceDescId" class="btn btn-outline-0 me-5 sortByButton"
+                        onclick="sortByPriceDesc()">Precio
+                        <i class="fas fa-arrow-down"></i></button>
+                </div>
+                <div class="nav-item">
+                    <button id="sortByPowerIdAsc" class="btn btn-outline-0 me-5 sortByButton"
+                        onclick="sortByPowerAsc()">Potencia <i class="fas fa-arrow-up"></i></button>
+                </div>
+                <div class="nav-item">
+                    <button id="sortByPowerIdDesc" class="btn btn-outline-0 me-5 sortByButton"
+                        onclick="sortByPowerDesc()">Potencia
+                        <i class="fas fa-arrow-down"></i></button>
+                </div>
+                <div class="nav-item mr-auto">
+                    <button id="sortByKmId" class="btn btn-outline-0 me-5 sortByButton"
+                        onclick="sortByKm()">Kilómetros</button>
+                </div>
+            </div>
+
 
             <!-- Filtro de búsqueda -->
 
@@ -136,10 +187,11 @@ if (isset($_COOKIE['bodyClass'])) {
                     if (isset($_COOKIE['bodyClass'])) {
                         $bodyClass = $_COOKIE['bodyClass']; ?>
                         <div class="card dark-mode" id="cardSearcher">
-                        <?php
+                            <?php
                     } else { ?>
                             <div class="card" id="cardSearcher">
-                            <?php
+                                <?php
+
                     } ?>
                             <div class="card-header">
                                 Busca tu vehículo
@@ -163,7 +215,8 @@ if (isset($_COOKIE['bodyClass'])) {
                                 <div class="form-group">
                                     <label for="brandLabel">Marca:</label>
                                     <select class="form-control" id="brand" onchange="optionModelValue(this.value)">
-                                        <option value="0" class="optionsClassName" selected>Todas las marcas</option>
+                                        <option value="0" class="optionsClassName" selected>Todas las marcas
+                                        </option>
 
                                         <?php
                                         foreach ($brands as $brand) { ?>
@@ -178,12 +231,13 @@ if (isset($_COOKIE['bodyClass'])) {
                                 <div class="form-group">
                                     <label for="brandModel">Modelo:</label>
                                     <select class="form-control" id="model">
-                                        <option value="0" class="optionsClassName" selected>Todos los modelos</option>
+                                        <option value="0" class="optionsClassName" selected>Todos los modelos
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="maxPriceLabel">Precio máximo:</label>
-                                    <input type="number" class="form-control" id="maxPrice" step="1000" min="0"
+                                    <input type="number" class="form-control" id="maxPrice" step="1000" min="0" max="100000000"
                                         value="">
                                 </div>
                                 <button class="btn btn-primary" onclick="sendData()" id="buttonData">Buscar</button>
@@ -225,7 +279,22 @@ if (isset($_COOKIE['bodyClass'])) {
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- <script>
+                window.onload = function() {
+    
+  
+                if (document.getElementById('result').children.length = 2 && document.getElementById('containerCarousel') !== null) {
+                    alert('treu')
+                }
 
+                else if (document.getElementById('result').children.length >= 2 && document.getElementById('containerCarousel') === null){ alert('flase') 
+                }
+
+
+};
+
+                 </script> -->
     </body>
 
 </html>
