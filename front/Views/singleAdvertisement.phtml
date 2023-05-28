@@ -30,9 +30,12 @@
 if (isset($_COOKIE['bodyClass'])) {
   $bodyClass = $_COOKIE['bodyClass'];
   ?>
-  <body class="dark-mode"> <?php
+
+  <body class="dark-mode">
+  <?php
 } else {
   ?>
+
     <body>
       <?php
 } ?>
@@ -75,6 +78,9 @@ if (isset($_COOKIE['bodyClass'])) {
               <h2 class="mb-4"> Modelo
                 <!-- <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?> -->
               </h2>
+              <p><strong>Id de anuncio:</strong>
+                <?php echo $advertisement_obj->advertisement->id ?>
+              </p>
               <p id="detailsAdvertisement"><strong>Marca:</strong>
                 <?php echo $advertisement_obj->advertisement->brand_id->name ?>
               </p>
@@ -82,7 +88,7 @@ if (isset($_COOKIE['bodyClass'])) {
                 <?php echo $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?>
               </p>
               <p><strong>Año:</strong>
-                <?php echo $advertisement_obj->advertisement->model_id->releaseYear->date ?>
+                <?php echo date("d-m-Y", strtotime($advertisement_obj->advertisement->model_id->releaseYear->date)) ?>
               </p>
               <p><strong>Descripción:</strong>
                 <?php echo $advertisement_obj->advertisement->description . "." ?>
@@ -92,9 +98,6 @@ if (isset($_COOKIE['bodyClass'])) {
               </p>
               <p><strong>Km:</strong>
                 <?php echo number_format($advertisement_obj->advertisement->km, 0, ",", ".") . " km" ?>
-              </p>
-              <p><strong>Color:</strong>
-                <?php echo $advertisement_obj->advertisement->color ?>
               </p>
             </div>
           </div>
@@ -120,6 +123,9 @@ if (isset($_COOKIE['bodyClass'])) {
               </p>
               <p><strong>Cilindrada:</strong>
                 <?php echo $advertisement_obj->advertisement->motorization_id->displacement . " l." ?>
+              </p>
+              <p><strong>Color:</strong>
+                <?php echo $advertisement_obj->advertisement->color ?>
               </p>
             </div>
           </div>
