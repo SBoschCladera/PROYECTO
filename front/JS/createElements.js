@@ -4,6 +4,7 @@
 // Crea un div con formato BOOSTRAP que se mostrará en pantalla
 function makeCard(cont, cont2, data) {
     let fatherDiv = createDiv("col-md-3 mt-4 portada ml-3 mb-3 anuncio", `advertisementDiv${cont + 1}`);
+    fatherDiv.dataset.advertisementId = data[cont].id;
 
     let sonDiv = createDiv("card advertisementCard", `sonDivId${cont + 1}`);
     let mainImage = createImage(data[cont].images.foto1, 'card-img-top', `Imagen del modelo ${cont + 1}`);
@@ -159,3 +160,91 @@ function notFoundMatches(id) {
     return div1;
 }
 
+// Muestra mensaje de no resultado par el buscador
+function notResults(counter) {
+    if (counter < 1) {
+        notFoundMatches('result');
+    }
+}
+
+// Mensaje si no se encuentran resultados
+function notFoundMatches(id) {
+    let div1 = createDiv('messageDiv', 'notFoundMatchesDiv');
+    let h5 = createH5('notFoundH5', '¿Resultados? No veo nada aquí excepto algunos gatitos adorables. Lo siento.');
+    let div2 = createDiv('catsDiv', 'catsId');
+    let img1 = createImage('../images/cats/cute-adorable.gif', 'cuteCats', 'gatitos adorables');
+    let img2 = createImage('../images/cats/cat-peach.gif', 'cuteCats', 'gatitos adorables');
+
+    div2.appendChild(img1);
+    div2.appendChild(img2);
+    div1.appendChild(h5);
+    div1.appendChild(div2);
+
+    let h5b = createH5('notFoundH5b', '¡Inténtalo de nuevo!"');
+    div1.appendChild(h5b);
+    document.getElementById(id).appendChild(div1);
+
+    return div1;
+}
+
+// Modal para mensaje de error
+function notSelectedFilter(id, title, message) {
+    let div1 = createDiv('modal fade modalClass', 'myModal');
+    div1.setAttribute('tabindex' ,'-1');
+    div1.setAttribute('role', 'dialog');
+    div1.setAttribute('aria-labelledby', 'exampleModalLabel'),
+    div1.setAttribute('aria-hidden','true');
+
+    let div2 = createDiv('modal-dialog modal-dialog-centered', 'div2Id');
+    div2.setAttribute('role', 'dialog');    
+
+    let div3 = createDiv('modal-content', 'div3Id');
+    div2.appendChild(div3);
+
+    div4 = createDiv('modal-header', 'div4Id');
+    let h51 = createH5('modal-title', title);
+    h51.setAttribute('id', 'h5HeaderId');
+    div4.appendChild(h51);
+    let boton1 = createButton('button', 'btn-close', 'dataset-buttonClose', '');
+    div4.appendChild(boton1);
+    div3.appendChild(div4);
+
+    div5= createDiv('modal-body', 'div5Id');
+    let h52 = createH5('modal-title', message);
+    h52.setAttribute('id', 'h5BodyId');
+    div5.appendChild(h52);
+    div3.appendChild(div5);
+
+    div6 = createDiv('modal-footer', 'div6Id');    
+    let boton2 = createButton('button', 'btn btn-primary', 'dataset-buttonClose', 'Aceptar');
+    div6.setAttribute('data-bs-dismiss', 'modal')
+    div6.appendChild(boton2);
+    div3.appendChild(div6);
+
+    div1.appendChild(div2);
+
+    document.getElementById(id).appendChild(div1);
+
+    return div1;
+}
+
+// Muestra el mensaje de error en un modal Bootstrap
+function errorMessageModal(title, message){
+    if (document.getElementById('result').children.length < 2) {
+
+        let divModal = notSelectedFilter('result', title, message)
+        var modal = new bootstrap.Modal(document.getElementById('myModal'));
+        modal.show();
+    }
+}
+
+// Elimina los modal del HTML
+function deleteShowErrorModal(){
+    let modalDiv = document.querySelectorAll(".modalClass");
+
+    for (let j = 0; j < modalDiv.length; j++) {
+        modalDiv[j].remove();
+    }
+}
+
+  
