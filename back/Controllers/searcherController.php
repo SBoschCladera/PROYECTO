@@ -16,7 +16,7 @@ if (isset($_GET["id"])) {
     $selectedAdvertisement = null; // Variable para almacenar el anuncio seleccionado
     $selectedId = $_GET["id"];
 
-    // Buscar el anuncio seleccionado en el conjunto de anuncios obtenidos
+    // Busca el anuncio seleccionado en el conjunto de anuncios obtenidos
     foreach ($advertisements as $advertisement) {
         if ($advertisement->getId() == $selectedId) {
             $selectedAdvertisement = $advertisement;
