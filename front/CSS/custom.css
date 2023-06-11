@@ -1,0 +1,8 @@
+/* Ajusta todas las imagenes del carrusel a un único tamaño manteniendo su aspect ratio */
+div.carousel-item img { 
+    height: 460px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 15px;
+}
+

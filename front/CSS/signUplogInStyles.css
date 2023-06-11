@@ -1,5 +1,5 @@
 /*  Estilos del LogIn y SignUp*/
-.bg-info {
+.divForm {
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
     border-radius: 10px;
@@ -7,21 +7,26 @@
     padding: 20px;
 }
 
+.invisible {
+    height: 1px;
+}
+
 /* Fondo del botón */
-.btn-primary {
-    background-color: #28a745;
+.send {
+    background-color: #58c473;
     /* color de fondo verde */
-    border-color: #28a745;
+    border-color: #3ee264;
     /* color del borde verde */
+    color: #555;
 }
 
 /* Color del texto del botón */
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active {
-    background-color: #218838;
+.send:hover,
+.send:focus,
+.send:active {
+    background-color: #62cf79;
     /* Background verde oscuro */
-    border-color: #1e7e34;
+    border-color: #62cf79;
     /* Color del borde verde oscuro */
 }
 
@@ -39,5 +44,9 @@ a {
 
 /* Posicionamiento del LogIn y SignUp */
 .verticalPosition {
-    margin-top: 10%
+    margin-top: 12%;
+}
+
+.seller {
+    margin-top: 9%;
 }
