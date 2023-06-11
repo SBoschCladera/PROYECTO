@@ -78,9 +78,9 @@ class AdvertisementListModel
             }
 
             if (!is_null($result["sellerUserId"])) {
-                $sellerUser = new SellerUser($result["sellerUserId"], $result["sellerUserName"], $result["NIF"], $result["mail"], $result["phoneNumber"], $result["userSellerUserAppId"]);
+                $sellerUser = new SellerUser($result["sellerUserId"], $result["sellerUserName"], $result["NIF"], $result["mail"], $result["phoneNumber"], $user);
             } else {
-                $sellerUser = new SellerUser(0, "-", "-" . "-", "-", "-", "0");
+                $sellerUser = new SellerUser(0, "-", "-" . "-", "-", "-", $user);
             }
 
             $advertisement = new Advertisement(
@@ -149,9 +149,9 @@ class AdvertisementListModel
         }
 
         if (!is_null($result["sellerUserId"])) {
-            $sellerUser = new SellerUser($result["sellerUserId"], $result["sellerUserName"], $result["NIF"], $result["mail"], $result["phoneNumber"], $result["userSellerUserAppId"]);
+            $sellerUser = new SellerUser($result["sellerUserId"], $result["sellerUserName"], $result["NIF"], $result["mail"], $result["phoneNumber"], $user);
         } else {
-            $sellerUser = new SellerUser(0, "-", "-" . "-", "-", "-", "0");
+            $sellerUser = new SellerUser(0, "-", "-" . "-", "-", "-", $user);
         }
 
         $multimedia = new Multimedia($result['multimediaId'], $model, $result['photo1'], $result['photo2'], $result['photo3'], $result['photo4'], $result['photo5']);
@@ -303,7 +303,71 @@ class AdvertisementListModel
         }
         return $models;
     }
+    
+    // Array de objetos con todas los sellerUsers 
+    public function getSellerUsers(): array
+    {
+        $sql = "SELECT seller_user.id AS sellerUserId, name, NIF, seller_user.mail AS sellerUserMail, seller_user.user_app_id AS sellerUserAppId, phoneNumber,
+                user_app.id AS userAppId, user_app.mail AS userAppMail, user_app.password AS userAppPassword 
+                FROM seller_user                   
+                INNER JOIN user_app ON user_app.id = seller_user.user_app_id";
 
+        $sellerUsers = array();
+        $this->db->default();
+        $statement = $this->db->prepare($sql);
+
+            if ($statement) {
+                $statement->execute();
+                $result = $statement->get_result();
+
+                while ($row = $result->fetch_assoc()) {      
+                    $user = new User($row['userAppId'], $row['userAppMail'], $row['userAppPassword']);
+
+                    $sellerUser = new SellerUser($row["sellerUserId"], $row["name"], $row['NIF'], $row["sellerUserMail"], $row['phoneNumber'], $user);
+                    $sellerUsers[] = $sellerUser;
+                }
+                $statement->close();
+            }
+        return $sellerUsers;
+    }
+
+    // Obtiene la info de un usuario
+    public function getUser($id): User
+    {
+        if (!is_null($id)) {
+            $sql = "SELECT id, mail, password FROM user_app WHERE id = " . $id;
+            $this->db->default();
+            $query = $this->db->query($sql);
+            $this->db->close();
+            $result = $query->fetch_assoc();
+            return new User($result["id"], $result["mail"], $result["password"]);
+        }
+        return new User(0, "-", "-");
+    }
+
+    // Obtiene la info de un usuario "Seller"
+    public function getSellerUser($id): SellerUser
+    {        
+        if (!is_null($id)) {
+            $sql = "SELECT id, name, NIF, mail, phoneNumber, user_app_id FROM seller_user WHERE id = " . $id;
+            $this->db->default();
+            $query = $this->db->query($sql);
+            $this->db->close();
+            $result = $query->fetch_assoc();
+
+
+            if (!is_null($result["userAppId"])) {
+                $user = new User($result["userAppId"], $result["userAppMail"], $result["userAppPassword"]);
+            } else {
+                $user = new User(0, "-", "-");
+            }
+
+            return new SellerUser($result["id"], $result["name"], $result["NIF"], $result["mail"], $result["phoneNumber"], $user);
+        }
+        
+        $sellerUser = new User(0, "-", "-");
+        return new SellerUser(0, "-", "-", "-", "-", $sellerUser);
+    }   
 
     /************************************* MÉTODOS SIN USO **************************************************************/
 
@@ -385,32 +449,7 @@ class AdvertisementListModel
         $return = new Benefits($result["id"], $result["model_id"], $result['max_velocity'], $result['acceleration_0_100'], $result['consumption']);
         return $return;
     }
-    public function getUser($id): User
-    {
-        if (!is_null($id)) {
-            $sql = "SELECT id, mail, password FROM user_app WHERE id = " . $id;
-            $this->db->default();
-            $query = $this->db->query($sql);
-            $this->db->close();
-            $result = $query->fetch_assoc();
-            return new User($result["id"], $result["mail"], $result["password"]);
-        }
-        return new User(0, "-", "-");
-    }
-    public function getSellerUser($id): SellerUser
-    {
-        if (!is_null($id)) {
-            $sql = "SELECT id, name, NIF, mail, phoneNumber, user_app_id FROM seller_user WHERE id = " . $id;
-            $this->db->default();
-            $query = $this->db->query($sql);
-            $this->db->close();
-            $result = $query->fetch_assoc();
-
-            return new SellerUser($result["id"], $result["name"], $result["NIF"], $result["mail"], $result["phoneNumber"], $result["user_app_id"]);
-        }
-        $user = new User(0, "-", "-");
-        return new SellerUser(0, "-", "-", "-", "-", 0);
-    }     
+      
     public function getMultimedia($id): Multimedia
     {
         $sql = "SELECT id, model_id, photo1, photo2, photo3, photo4, photo5 FROM multimedia  WHERE " . $id;

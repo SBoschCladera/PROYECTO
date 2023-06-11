@@ -77,9 +77,9 @@ class SingleAdvertisementModel
         }
 
         if (!is_null($result["sellerUserId"])) {
-            $sellerUser = new SellerUser($result["sellerUserId"], $result["sellerUserName"], $result["NIF"], $result["mail"], $result["phoneNumber"], $result["userSellerUserAppId"]);
+            $sellerUser = new SellerUser($result["sellerUserId"], $result["sellerUserName"], $result["NIF"], $result["mail"], $result["phoneNumber"], $user);
         } else {
-            $sellerUser = new SellerUser(0, "-", "-", "-" . "-", "-", 0);
+            $sellerUser = new SellerUser(0, "-", "-", "-" . "-", "-", $user);
         }
 
         $multimedia = new Multimedia($result['multimediaId'], $model, $result['photo1'], $result['photo2'], $result['photo3'], $result['photo4'], $result['photo5']);
