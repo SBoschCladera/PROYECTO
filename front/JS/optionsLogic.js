@@ -11,13 +11,6 @@ function optionValue(selectedId) {
             // Analiza la respuesta JSON recibida
             let data = JSON.parse(this.responseText);
 
-            // Crea una opción predeterminada en el elemento select
-            let option = document.createElement("option");
-            option.value = '0';
-            option.text = 'Todas las marcas';
-            option.setAttribute('class', 'optionsClassName')
-            document.getElementById("brand").appendChild(option);
-
             // Elimina todas las opciones existentes en los elemento select "brand" y "model", excepto la opción predeterminada
             while (document.getElementById('brand').options.length > 1) {
                 document.getElementById('brand').remove(1);
@@ -42,7 +35,7 @@ function optionValue(selectedId) {
 
             let brandsWithoutVehicleIdName = [], brandsWithoutVehicleIdValue = [];
             //Si no se ha seleccionado ningún tipo de vehículo, crea opciones para todas las marcas
-            if (parseInt(document.getElementById('vehicleType').value) == "0" /*&& totalBrandsName.indexOf(text) === -1*/) {
+            if (parseInt(document.getElementById('vehicleType').value) == "0") {
                 for (let j = 0; j < data.advertisements.length; j++) {
                     fillArray(brandsWithoutVehicleIdName, brandsWithoutVehicleIdValue, data.advertisements[j].brand_id.name, data.advertisements[j].model_id.id);
                 }
@@ -53,6 +46,15 @@ function optionValue(selectedId) {
             }
 
             // Añadimos al select los valores del array "brandsArray" y "brandsId" sin repeticiones (cuando hay un id seleccionado)
+            // Crea una opción predeterminada en el elemento select
+            if (document.getElementById('vehicleType').dataset.info == "3") {
+                let option = createOption("-1", 'Nuevo registro', 'brand', 'optionsClassName');
+                option.style.color = 'white';
+                option.style.fontWeight = 'bold';
+                option.style.backgroundColor = '#62cf79';  
+                document.getElementById('brand').appendChild(option);
+            } 
+
             for (let j = 0; j < brandsArray.length; j++) {
                 let value = brandsId[j];
                 let text = brandsArray[j];
@@ -94,13 +96,6 @@ function optionModelValue(selectedBrandId) {
                 document.getElementById('model').remove(0);
             }
 
-            // Crea una opción predeterminada en el elemento select
-            let option = document.createElement("option");
-            option.value = '0';
-            option.text = 'Todos los modelos';
-            option.setAttribute('class', 'optionsClassName')
-            document.getElementById("model").appendChild(option);
-
             // Crea nuevas arrays
             let modelsArray = [], modelsId = [];
 
@@ -126,6 +121,20 @@ function optionModelValue(selectedBrandId) {
             }
 
             // Añadimos al select los valores del array "modelsArray" y "modelsId" sin repeticiones
+            // Crea una opción predeterminada en el elemento select
+            if (document.getElementById('brand').dataset.info == "5") {
+                let option = createOption("0", 'Selecciona una opción', 'model', 'optionsClassName');
+                document.getElementById('model').appendChild(option);
+                let option2 = createOption("-1", 'Nuevo registro', 'model', 'optionsClassName'); 
+                option2.style.color = 'white';
+                option2.style.fontWeight = 'bold';
+                option2.style.backgroundColor = '#62cf79';          
+                document.getElementById('model').appendChild(option2);
+            } else {
+                let option = createOption("0", 'Todos los modelos', 'model', 'optionsClassName');                
+                document.getElementById('model').appendChild(option);
+            }
+
             for (let j = 0; j < modelsArray.length; j++) {
                 let value = modelsId[j];
                 let text = modelsArray[j];
@@ -149,4 +158,51 @@ function fillArray(brandsWithoutVehicleIdName, brandsWithoutVehicleIdValue, text
     }
 }
 
+// Habilita o deshabilita un textField
+function toggleTextField(selectID, textFieldId) {
+    let selectElement = document.getElementById(selectID);
+    let textFieldElement = document.getElementById(textFieldId);
 
+    if (selectElement.value === "-1") {
+        textFieldElement.disabled = false;
+    } else {
+        textFieldElement.disabled = true;
+        document.getElementById(textFieldId).value = "";
+    }
+}
+
+// Habilita o deshabilita el textField para el insert de la nueva marca
+function toggleTextFieldBrand() {
+    let selectElement = document.getElementById('brand');
+    let textFieldElement = document.getElementById('newBrand');
+    let buttonLoadLogo = document.getElementById('loadLogo');
+    let insertLogo = document.getElementById('newLogoId');
+
+    if (selectElement.value === "-1") {
+        textFieldElement.disabled = false;
+        buttonLoadLogo.classList.remove('disabled');
+        insertLogo.disabled = false;
+        document.getElementById('newCountry').innerHTML = "hola";
+    } else {
+        textFieldElement.disabled = true;
+        buttonLoadLogo.classList.add('disabled');
+        insertLogo.disabled = true;
+        textFieldElement.value = "";
+        insertLogo.value = "";
+    }
+}
+
+// Habilita o deshabilita el textField para el insert del nuevo modelo
+function toggleTextFieldModel() {
+    let selectElement = document.getElementById('model');
+    let textFieldElement = document.getElementById('newModel');
+    let textFieldElementSeries = document.getElementById('series');
+
+    if (selectElement.value === "-1") {
+        textFieldElement.disabled = false;
+    } else {
+        textFieldElement.disabled = true;
+        textFieldElement.value = "";
+        textFieldElementSeries.value = "";
+    }
+}

@@ -1,4 +1,3 @@
-
 // Obtiene los datos de los anuncios del backEnd.
 function toListAdvertisements() {
     // Crea una solicitud HTTP POST al servidor para obtener los datos de los anuncios
@@ -147,6 +146,3 @@ function sendData() {
     xhr.send();
     document.getElementById('maxPrice').value = "";
 }
-
-
-
