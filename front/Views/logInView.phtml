@@ -4,64 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LogIn</title>
+    <title>Registrarse</title>
     <!-- Enlace al archivo CSS de Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- JS de Bootstrap (requiere jQuery) -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Enlace al archivo CSS personalizado -->
-    <link rel="stylesheet" href="../CSS/styles.css">
     <link rel="stylesheet" href="../CSS/signUplogInStyles.css">
     <!-- Scripts JS -->
-    <script src="../JS/darkMode.js"></script>
+    <!-- <script src="../JS/darkMode.js"></script> -->
 </head>
 
-<!-- Recupera el valor de la clase guardada en la cookie -->
-<?php
-if (isset($_COOKIE['bodyClass'])) {
-    $bodyClass = $_COOKIE['bodyClass'];
-    ?>
-
-    <body <?php echo 'class="dark-mode"'; ?>> <?php
-} else {
-    ?>
-
-        <body>
-            <?php
-} ?>
-
-<div style="display: flex; align-items: baseline; justify-content: center; height: 100vh;"
-            class="verticalPosition">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-8 col-md-6 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-4">
-                        <div class="bg-info">
-                            <h1 class="text-center">Iniciar sesión</h1>
-
-                            <form method="post">
-                                <div class="form-group">
-                                    <label for="email">Correo electrónico:</label>
-                                    <input type="text" id="mail" class="form-control" name="mail"
-                                        placeholder="Ingrese su correo electrónico">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Contraseña:</label>
-                                    <input type="password" id="password" class="form-control" name="password"
-                                        placeholder="Ingrese su contraseña">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Contraseña:</label>
-                                    <input type="submit" class="btn btn-primary btn-block" value="Iniciar sesión">
-                                </div>
-                            </form>
-                            <p class="text-center">¿No tienes una cuenta? <a
-                                    href="../Controllers/signUpController.php">Registrarse</a></p>
+<body>
+    <div class="container verticalPosition">
+        <div class="row">
+            <div class="col-sm-8 col-md-6 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-4 mx-auto">
+                <div class="divForm">
+                    <h1 class="text-center">Registrarse</h1>
+                    <form method="post" class="mb-1">
+                        <div class="form-group">
+                            <label for="email">Correo electrónico:</label>
+                            <input type="text" id="mail" class="form-control" name="mail"
+                                placeholder="Ingrese su correo electrónico">
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña:</label>
+                            <input type="password" id="password" class="form-control" name="password"
+                                placeholder="Ingrese su contraseña">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña:</label>
+                            <input type="submit" class="btn btn-outline-success btn-block send" value="Iniciar sesión">
+                        </div>
+                    </form>
+                    <p class="text-center">¿No tienes una cuenta? <a
+                            href="../Controllers/signUpController.php">Registrarse</a></p>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+
+</body>
 
 </html>

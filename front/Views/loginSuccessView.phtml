@@ -15,32 +15,22 @@
   <script src="../JS/darkMode.js"></script>
 </head>
 
-<?php
-if (isset($_COOKIE['bodyClass'])) {
-  $bodyClass = $_COOKIE['bodyClass'];
-  ?>
-  <body class="dark-mode"> <?php
-} else {
-  ?>
-    <body >
-      <?php
-} ?>
+<body>
+  <div class="alert alert-success alert-dismissible fade in">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>¡Excelente!</strong> Te has logueado correctamente.
+  </div>
 
-    <div class="alert alert-success alert-dismissible fade in">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong>¡Excelente!</strong> Te has logueado correctamente.
-    </div>
+  <script>
+    $(document).ready(function () {
 
-    <script>
-      $(document).ready(function () {
-
-        // Oculta el alert después de tres segundos
-        setTimeout(function () {
-          $('.alert').alert('close');
-          window.location.href = "../Controllers/initController.php";
-        }, 2500);
-      });
-    </script>
-  </body>
+      // Oculta el alert después de tres segundos
+      setTimeout(function () {
+        $('.alert').alert('close');
+        window.location.href = "../Controllers/initController.php";
+      }, 2500);
+    });
+  </script>
+</body>
 
 </html>

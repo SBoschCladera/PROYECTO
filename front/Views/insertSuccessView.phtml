@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-  <title>Error login</title>
+  <title>Success login</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -16,9 +16,9 @@
 </head>
 
 <body>
-  <div class="alert alert-danger alert-dismissible fade in">
+  <div class="alert alert-success alert-dismissible fade in">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Ooppsss!</strong> Algo ha ido mal......
+    <strong>¡Excelente!</strong> Auncio insertado correctamente.
   </div>
 
   <script>
@@ -27,7 +27,7 @@
       // Oculta el alert después de tres segundos
       setTimeout(function () {
         $('.alert').alert('close');
-        window.location.href = "../Controllers/loginController.php";
+        window.location.href = "../Controllers/initController.php";
       }, 2500);
     });
   </script>

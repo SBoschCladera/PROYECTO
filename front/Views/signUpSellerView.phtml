@@ -18,33 +18,42 @@
 </head>
 
 <body>
-    <div class="container verticalPosition">
+
+    <?php include("../Controllers/listController.php"); ?>
+
+    <div class="container verticalPosition seller">
         <div class="row">
             <div class="col-sm-8 col-md-6 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-4 mx-auto">
                 <div class="divForm">
-                    <h1 class="text-center">Registrarse</h1>
-                    <form method="post" clas="mb-1">
+                    <h1 class="text-center">Registro de vendedor</h1>
+                    <form method="post" class="mb-2">
                         <div class="form-group">
-                            <label for="email">Correo electrónico:</label>
-                            <input type="email" id="mail" class="form-control" name="mail"
-                                placeholder="Ingrese su correo electrónico">
+                            <label for="name">Nombre:</label>
+                            <input type="text" id="nameSurname" class="form-control" name="nameSurname"
+                                placeholder="Nombre y apellidos">
                         </div>
                         <div class="form-group">
-                            <label for="password">Contraseña:</label>
-                            <input type="password" id="password" class="form-control" name="password"
-                                placeholder="Ingrese su contraseña">
+                            <label for="nif">NIF:</label>
+                            <input type="text" id="nif" class="form-control" name="nif"
+                                placeholder="Documento de identidad">
                         </div>
                         <div class="form-group">
-                            <label for="confirm-password">Confirmar contraseña:</label>
-                            <input type="password" id="password2" class="form-control" name="password2"
-                                placeholder="Confirme su contraseña">
+                            <label for="phoneNumber">Teléfono:</label>
+                            <input type="text" id="phoneNumber" class="form-control" name="phoneNumber"
+                                placeholder="Teléfono">
                         </div>
+                        <input type="text" id="mail" class="form-control invisible" name="mail"
+                            value="<?php echo $_SESSION['mail'] ?>">
+                        <input type="text" id="idUser" class="form-control invisible " name="id"
+                            value="<?php echo $_SESSION['id'] ?>">
                         <input type="submit" class="btn btn-outline-success btn-block send" value="Registrarse">
                     </form>
-                    <p class="text-center">¿Ya tienes una cuenta?
-                        <a href="../Controllers/loginController.php">Iniciar sesión</a>
+                    <p>
+                        <a href='../Controllers/initController.php' class="text-secondary">Volver a la página
+                            principal</a>
                     </p>
                 </div>
+
             </div>
         </div>
     </div>

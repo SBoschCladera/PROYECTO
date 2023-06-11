@@ -32,7 +32,7 @@ if (isset($_COOKIE['bodyClass'])) {
   ?>
 
   <body class="dark-mode">
-  <?php
+    <?php
 } else {
   ?>
 
@@ -42,10 +42,26 @@ if (isset($_COOKIE['bodyClass'])) {
 
     <!-- <?php var_dump($advertisement_obj->advertisement) ?> -->
 
-    <button type="button" id="closeButton" class="close position-fixed float-right" data-dismiss="modal"
-      aria-label="Close" onclick="window.close()">
-      <span aria-hidden="true">&times;</span>
-    </button>
+
+    <?php
+    if (isset($_COOKIE['bodyClass'])) {
+      $bodyClass = $_COOKIE['bodyClass'];
+      ?>
+
+      <button type="button" id="closeButton" class="close position-fixed float-right bg-secondary text-light" data-dismiss="modal"
+        aria-label="Close" onclick="window.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <?php
+    } else {
+      ?>
+
+      <button type="button" id="closeButton" class="close position-fixed float-right" data-dismiss="modal"
+        aria-label="Close" onclick="window.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <?php
+    } ?>
 
     <div class="container mt-5">
       <h1 class="mb-5">
@@ -71,92 +87,147 @@ if (isset($_COOKIE['bodyClass'])) {
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row cardInfoCar">
         <div class="col-md-4 mt-2">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="mb-4"> Modelo
-                <!-- <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?> -->
-              </h2>
-              <p><strong>Id de anuncio:</strong>
-                <?php echo $advertisement_obj->advertisement->id ?>
-              </p>
-              <p id="detailsAdvertisement"><strong>Marca:</strong>
-                <?php echo $advertisement_obj->advertisement->brand_id->name ?>
-              </p>
-              <p><strong>Modelo:</strong>
-                <?php echo $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?>
-              </p>
-              <p><strong>Año:</strong>
-                <?php echo date("d-m-Y", strtotime($advertisement_obj->advertisement->model_id->releaseYear->date)) ?>
-              </p>
-              <p><strong>Descripción:</strong>
-                <?php echo $advertisement_obj->advertisement->description . "." ?>
-              </p>
-              <p><strong>Precio:</strong>
-                <?php echo number_format($advertisement_obj->advertisement->price, 0, ",", ".") . "€" ?>
-              </p>
-              <p><strong>Km:</strong>
-                <?php echo number_format($advertisement_obj->advertisement->km, 0, ",", ".") . " km" ?>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mt-2">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="mb-4">Características</h2>
-              <p><strong>Motor:</strong>
-                <?php echo $advertisement_obj->advertisement->model_id->engineType_id->name . "." ?>
-              </p>
-              <p><strong>Consumo:</strong>
-                <?php echo $advertisement_obj->advertisement->benefits_id->consumption . " l/100 km" ?>
-              </p>
-              <p><strong>Velocidad máxima:</strong>
-                <?php echo $advertisement_obj->advertisement->benefits_id->max_velocity . " km/h" ?>
-              </p>
-              <p><strong>Aceleración:</strong>
-                <?php echo $advertisement_obj->advertisement->benefits_id->acceleration_0_100 . " seg." ?>
-              </p>
-              <p><strong>Potencia:</strong>
-                <?php echo $advertisement_obj->advertisement->motorization_id->power . " CV." ?>
-              </p>
-              <p><strong>Cilindrada:</strong>
-                <?php echo $advertisement_obj->advertisement->motorization_id->displacement . " l." ?>
-              </p>
-              <p><strong>Color:</strong>
-                <?php echo $advertisement_obj->advertisement->color ?>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mt-5">
-          <div class="card">
-            <div class="card-body">
-              <p>Para contactar con el vendedor, envía un correo electrónico a:</p>
-              <a href="mailto:vendedor@example.com"
-                class="btn btn-primary bg-light text-secondary">vendedor@example.com</a>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-12 mb-5">
-        <h2 id="galleryH2" class="mt-5 mb-5">Galería de imágenes</h2>
-        <section class=" col-md-12">
-          <img src="<?php echo $advertisement_obj->advertisement->images->foto1 ?>"
-            alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
-          <img src="<?php echo $advertisement_obj->advertisement->images->foto2 ?>"
-            alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
-          <img src="<?php echo $advertisement_obj->advertisement->images->foto3 ?>"
-            alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
-          <img src="<?php echo $advertisement_obj->advertisement->images->foto4 ?>"
-            alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
-          <img src="<?php echo $advertisement_obj->advertisement->images->foto5 ?>"
-            alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
-        </section>
-      </div>
-    </div>
+          <?php
+          if (isset($_COOKIE['bodyClass'])) {
+            $bodyClass = $_COOKIE['bodyClass'];
+            ?>
+
+            <div class="card dark-mode">
+              <?php
+          } else {
+            ?>
+
+              <div class="card">
+                <?php
+          } ?>
+              <div class="card-body cardInfoCar">
+                <h2 class="mb-4 cardInfoCar"> Modelo
+                  <!-- <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?> -->
+                </h2>
+                <p class="cardInfoCar"><strong>Id de anuncio:</strong>
+                  <?php echo $advertisement_obj->advertisement->id ?>
+                </p>
+                <p id="detailsAdvertisement"><strong>Marca:</strong>
+                  <?php echo $advertisement_obj->advertisement->brand_id->name ?>
+                </p>
+                <p><strong>Modelo:</strong>
+                  <?php echo $advertisement_obj->advertisement->model_id->name . " " . $advertisement_obj->advertisement->model_id->series ?>
+                </p>
+                <p><strong>Fecha de matriculación:</strong>
+                  <?php echo date("d-m-Y", strtotime($advertisement_obj->advertisement->model_id->releaseYear->date)) ?>
+                </p>
+                <p><strong>Descripción:</strong>
+                  <?php echo $advertisement_obj->advertisement->description . "." ?>
+                </p>
+                <p><strong>Precio:</strong>
+                  <?php echo number_format($advertisement_obj->advertisement->price, 0, ",", ".") . "€" ?>
+                </p>
+                <p><strong>Km:</strong>
+                  <?php echo number_format($advertisement_obj->advertisement->km, 0, ",", ".") . " km" ?>
+                </p>
+              </div>
+            </div>
+
+
+
+
+          </div>
+          <div class="col-md-4 mt-2">
+            <?php
+            if (isset($_COOKIE['bodyClass'])) {
+              $bodyClass = $_COOKIE['bodyClass'];
+              ?>
+
+              <div class="card dark-mode">
+                <?php
+            } else {
+              ?>
+
+                <div class="card">
+                  <?php
+            } ?>
+                <div class="card-body">
+                  <h2 class="mb-4">Características</h2>
+                  <p><strong>Motor:</strong>
+                    <?php echo $advertisement_obj->advertisement->model_id->engineType_id->name . "." ?>
+                  </p>
+                  <p><strong>Consumo:</strong>
+                    <?php echo $advertisement_obj->advertisement->benefits_id->consumption . " l/100 km" ?>
+                  </p>
+                  <p><strong>Velocidad máxima:</strong>
+                    <?php echo $advertisement_obj->advertisement->benefits_id->max_velocity . " km/h" ?>
+                  </p>
+                  <p><strong>Aceleración:</strong>
+                    <?php echo $advertisement_obj->advertisement->benefits_id->acceleration_0_100 . " seg." ?>
+                  </p>
+                  <p><strong>Potencia:</strong>
+                    <?php echo $advertisement_obj->advertisement->motorization_id->power . " CV." ?>
+                  </p>
+                  <p><strong>Cilindrada:</strong>
+                    <?php echo $advertisement_obj->advertisement->motorization_id->displacement . " l." ?>
+                  </p>
+                  <p><strong>Color:</strong>
+                    <?php echo ucfirst($advertisement_obj->advertisement->color); ?>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mt-5">
+              <?php
+              if (isset($_COOKIE['bodyClass'])) {
+                $bodyClass = $_COOKIE['bodyClass'];
+                ?>
+
+                <div class="card dark-mode">
+                  <?php
+              } else {
+                ?>
+
+                  <div class="card">
+                    <?php
+              } ?>
+                  <div class="card-body">
+                    <p>Para contactar con el vendedor, envía un correo electrónico a:</p>
+
+                    <?php
+                    if (isset($_COOKIE['bodyClass'])) {
+                      $bodyClass = $_COOKIE['bodyClass'];
+                      ?>
+
+                      <a href="mailto:<?php echo $advertisement_obj->advertisement->sellerUser_id->mail ?>"
+                        class="btn btn-primary bg-secondary text-light"><?php echo $advertisement_obj->advertisement->sellerUser_id->mail ?></a>
+                      <?php
+                    } else {
+                      ?>
+
+                      <a href="mailto:<?php echo $advertisement_obj->advertisement->sellerUser_id->mail ?>"
+                        class="btn btn-primary bg-light text-secondary"><?php echo $advertisement_obj->advertisement->sellerUser_id->mail ?></a>
+                      <?php
+                    } ?>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-5">
+              <h2 id="galleryH2" class="mt-5 mb-5">Galería de imágenes</h2>
+              <section class=" col-md-12">
+                <img src="<?php echo $advertisement_obj->advertisement->images->foto1 ?>"
+                  alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+                <img src="<?php echo $advertisement_obj->advertisement->images->foto2 ?>"
+                  alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+                <img src="<?php echo $advertisement_obj->advertisement->images->foto3 ?>"
+                  alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+                <img src="<?php echo $advertisement_obj->advertisement->images->foto4 ?>"
+                  alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+                <img src="<?php echo $advertisement_obj->advertisement->images->foto5 ?>"
+                  alt="foto de <?php echo $advertisement_obj->advertisement->brand_id->name . " " . $advertisement_obj->advertisement->model_id->name ?>">
+              </section>
+            </div>
+          </div>
   </body>
 
 </html>
