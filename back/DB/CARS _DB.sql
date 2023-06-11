@@ -1283,7 +1283,7 @@ VALUES
      ),
      (
           56,
-          '../images/advertisementImages/bmw-m3-cs-2023-7386_23.jpg',
+          '../images/advertisementImages/bmw-x3-2017-m40i-11_1440x655c.jpg',
           '../images/advertisementImages/bmw-x3-2017-m40i-20_750x.jpg',
           '../images/advertisementImages/Imagen IMG_3769-U60882784134WIP-624x385@Las Provincias.jpg',
           '../images/advertisementImages/Imagen IMG_4029-Rxfz8bLeGZzeRxPnLOMYfpL-624x385@Las Provincias.jpg',
@@ -1662,8 +1662,8 @@ VALUES
           '../images/advertisementImages/SEATIbizaCupra-2092_1.jpg',
           '../images/advertisementImages/SEATIbizaCupra-2092_2.jpg',
           '../images/advertisementImages/SEATIbizaCupra-2092_3.jpg',
-          '../images/advertisementImages/SEATIbizaCupra-2092_22.jpg',
-          '../images/advertisementImages/SEATIbizaCupra-2092_24.jpg'
+          '../images/advertisementImages/SEATIbizaCupra-4273_22.jpg',
+          '../images/advertisementImages/SEATIbizaCupra-4273_24.jpg'
      ),
      (
           104,
