@@ -7,15 +7,6 @@ if (isset($_GET["param"])) {
 
 $obj = json_decode($file);
 $advertisements = $obj->advertisements;
-//var_dump($advertisements);
-$selectedAdvertisementId = "";
-
-
-if (isset($_GET["id"])) {
-    $selectedAdvertisementId = $_GET["id"];
-    $selectedAdvertisement = $obj->selectedAdvertisement;
-}
-//session_start();
 
 return $advertisements;
 ?>

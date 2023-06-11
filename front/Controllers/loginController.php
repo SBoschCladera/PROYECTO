@@ -10,13 +10,12 @@ if (isset($_POST["mail"]) && isset($_POST["password"])) {
         $_SESSION["mail"] = $obj_user->mail;
         $_SESSION["userPlainPassword"] = $_POST["password"];
 
-        // header("Location: initController.php");
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../Views/loginSuccessView.phtml");
             exit();
         }
     } else {
-        //die("Login incorrecto");
+
         header("Location: ../Views/errorLoginView.phtml");
         exit();
     }

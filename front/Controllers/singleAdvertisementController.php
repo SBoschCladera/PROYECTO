@@ -13,7 +13,7 @@ if (isset($_SESSION["id"])) {
 } else {
    header("Location: loginController.php");
 }
-//var_dump($advertisement_obj);
+
 require_once "../Views/singleAdvertisement.phtml";
 
 ?>

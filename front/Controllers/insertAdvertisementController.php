@@ -56,13 +56,40 @@ if (isset($_GET["id"])) {
 }
 
 
-// Obtiene todos los usuarios registrados como vendedores
-$file = file_get_contents("http://localhost/php/PROYECTO/back/Controllers/sellerUserController.php");
+// Verifica el "id" para los tipos de motores ("engineTypes")
+if (isset($_GET["id"])) {
+    $selectedEngineTypeId = $_GET["id"];
+    $file = file_get_contents("http://localhost/php/PROYECTO/back/Controllers/engineTypeController.php?id=" . $selectedEngineTypeId);
+} else {
+    $file = file_get_contents("http://localhost/php/PROYECTO/back/Controllers/engineTypeController.php");
+}
 
 $obj = json_decode($file);
-$sellerUsers = $obj->sellerUsers;
+$engineTypes = $obj->engineTypes;
 
-session_start();
+// Obtiene el tipo de motor seleccionado según su id
+$selectedEngineTypeId = "";
+if (isset($_GET["id"])) {
+    $selectedEngineTypeId = $_GET["id"];
+    $selectedEngineType = $obj->selectedEngineType;
+}
 
-// Incluye la vista
-require_once "../Views/index.phtml";
+// Verifica el "id" para los países ("countries")
+if (isset($_GET["id"])) {
+    $selectedCountryId = $_GET["id"];
+    $file = file_get_contents("http://localhost/php/PROYECTO/back/Controllers/countryController.php?id=" . $selectedCountryId);
+} else {
+    $file = file_get_contents("http://localhost/php/PROYECTO/back/Controllers/countryController.php");
+}
+
+$obj = json_decode($file);
+$countries = $obj->countries;
+
+// Obtiene el país seleccionado según su id
+$selectedCountryId = "";
+if (isset($_GET["id"])) {
+    $selectedCountryId = $_GET["id"];
+    $selectedCountryType = $obj->selectedCountry;
+}
+
+require_once "../Views/insertAdvertisementView.phtml";

@@ -9,7 +9,6 @@ if (isset($_POST["mail"]) && isset($_POST["password"]) && isset($_POST["password
                 exit();
             }
         } else {
-            //die($signup_obj->error);
             header("Location: ../Views/errorSignUpView.phtml");
             exit();
         }
