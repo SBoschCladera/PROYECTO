@@ -7,17 +7,17 @@ class Benefits
     public int $id;
     public Model $model_id;
     public int $max_velocity;
-    public int $acceleration_0_100;
+    public float $acceleration_0_100;
     public float $consumption;   
 
     /**
      * @param int $id
      * @param Model $modelo_id
      * @param int $max_velocity
-     * @param int $acceleration_0_100
+     * @param float $acceleration_0_100
      * @param float $consumption
      */
-    public function __construct(int $id, Model $model_id, int $max_velocity, int $acceleration_0_100, float $consumption)
+    public function __construct(int $id, Model $model_id, int $max_velocity, float $acceleration_0_100, float $consumption)
     {
         $this->id = $id;
         $this->model_id = $model_id;
@@ -53,7 +53,7 @@ class Benefits
     /**
      * @return int
      */
-    public function getAcceleration(): int
+    public function getAcceleration(): float
     {
         return $this->acceleration_0_100;
     }

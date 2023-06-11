@@ -7,7 +7,7 @@ class SellerUser
     public string $NIF;
     public string $mail;
     public string $phoneNumber;
-    public int $user_app_id;
+    public User $user_app_id;
 
 
     /**
@@ -16,9 +16,9 @@ class SellerUser
      * @param string $NIF
      * @param string $mail
      * @param string $phoneNumber
-     * @param int $user_app_id
+     * @param User $user_app_id
      */
-    public function __construct(int $id, string $name, string $NIF, string $mail, string $phoneNumber, int $user_app_id)
+    public function __construct(int $id, string $name, string $NIF, string $mail, string $phoneNumber, User $user_app_id)
     {
         $this->id = $id;
         $this->name = $name;
@@ -93,17 +93,17 @@ class SellerUser
     }
 
     /**
-     * @return int
+     * @return User
      */
-    public function getUserApp(): int
+    public function getUserApp(): User
     {
         return $this->user_app_id;
     }
 
     /**
-     * @param int 
+     * @param User 
      */
-    public function setUserApp(int $user_app_id): void
+    public function setUserApp(User $user_app_id): void
     {
         $this->user_app_id = $user_app_id;
     }

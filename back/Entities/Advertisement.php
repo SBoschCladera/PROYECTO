@@ -80,11 +80,27 @@ class Advertisement
     }
 
     /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return string
      */
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
     }
 
     /**
@@ -96,11 +112,26 @@ class Advertisement
     }
 
     /**
+     * @param float $price
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
+    }
+    /**
      * @return DateTime
      */
     public function getPublicationDate(): DateTime
     {
         return $this->publication_date;
+    }
+
+    /**
+     * @param DateTime $publication_date
+     */
+    public function setPublicationDate(DateTime $publication_date): void
+    {
+        $this->publication_date = $publication_date;
     }
 
     /**
@@ -112,12 +143,21 @@ class Advertisement
     }
 
     /**
+     * @param Model $model_id
+     */
+    public function setModelId(Model $model_id): void
+    {
+        $this->model_id = $model_id;
+    }
+
+    /**
      * @return SellerUser
      */
     public function getSellerUser(): SellerUser
     {
         return $this->sellerUser_id;
     }
+
 
     /**
      * @param SellerUser $sellerUser_id
@@ -135,12 +175,45 @@ class Advertisement
         return $this->color;
     }
 
+
+    /**
+     * @param string $color
+     */
+    public function setColor(string $color): void
+    {
+        $this->color = $color;
+    }
+
+    /**
+     * @return float
+     */
+    public function getKm(): float
+    {
+        return $this->km;
+    }
+
+    /**
+     * @param float $km
+     */
+    public function setKm(float $km): void
+    {
+        $this->km = $km;
+    }
+
     /**
      * @return Multimedia
      */
     public function getimages(): Multimedia
     {
         return $this->images;
+    }
+
+    /**
+     * @param Multimedia $images
+     */
+    public function setImages(Multimedia $images): void
+    {
+        $this->images = $images;
     }
 
     /**
@@ -152,11 +225,27 @@ class Advertisement
     }
 
     /**
+     * @param Brand $brand_id
+     */
+    public function setBrandId(Brand $brand_id): void
+    {
+        $this->brand_id = $brand_id;
+    }
+
+    /**
      * @return Motorization
      */
     public function getMotorization(): Motorization
     {
         return $this->motorization_id;
+    }
+
+    /**
+     * @param Motorization $motorization_id
+     */
+    public function setMotorizationId(Motorization $motorization_id): void
+    {
+        $this->motorization_id = $motorization_id;
     }
 
     /**
@@ -168,11 +257,27 @@ class Advertisement
     }
 
     /**
+     * @param Benefits $benefits_id
+     */
+    public function setBenefitsId(Benefits $benefits_id): void
+    {
+        $this->benefits_id = $benefits_id;
+    }
+
+    /**
      * @return EngineType
      */
     public function getEngineType(): EngineType
     {
         return $this->engine_type_id;
+    }
+
+    /**
+     * @param EngineType $engine_type_id
+     */
+    public function setEngineTypeId(EngineType $engine_type_id): void
+    {
+        $this->engine_type_id = $engine_type_id;
     }
 
     /**
@@ -184,6 +289,14 @@ class Advertisement
     }
 
     /**
+     * @param string $latitude
+     */
+    public function setLatitude(string $latitude): void
+    {
+        $this->latitude = $latitude;
+    }
+
+    /**
      * @return string
      */
     public function getLongitude(): string
@@ -191,6 +304,13 @@ class Advertisement
         return $this->longitude;
     }
 
+    /**
+     * @param string $longitude
+     */
+    public function setLongitude(string $longitude): void
+    {
+        $this->longitude = $longitude;
+    }
 
     /**
      * @return bool
